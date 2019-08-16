@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Windows Powershell Download File | 3ecurity</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap-3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-137778587-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-137778587-1');
+</script>
+
+
+
+    <link rel="shortcut icon" href="/images/favicon.jpg">
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed/"> 
+
+</head>
+
+
+    <body>
+      <div class="container">
+
+        
+
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <main>
+            <div class="post">
+
+  <header class="post-header">
+    <h1>Windows Powershell Download File</h1>
+  </header>
+
+  <article class="post-content">
+  <div class="post">
+
+  <header class="post-header">
+    <p class="meta">
+        Apr 11, 2019
+        
+        
+        •
+        <span><a href="/category/#Powershell" class="reserved">Powershell</a>,</span><span><a href="/category/#Download" class="reserved">Download</a></span>
+    </p>
+  </header>
+
+  <article class="post-content">
+  <h1 id="下载">下载：</h1>
+
+<h3 id="1-netwebclient">1. Net.WebClient</h3>
+
+<p><code class="highlighter-rouge">powershell.exe -Command "&amp; {(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg', 'test1.jpg')}"</code></p>
+
+<h3 id="2-bitstransfer">2. BitsTransfer</h3>
+
+<p><code class="highlighter-rouge">powershell.exe -Command "&amp; {Import-Module BitsTransfer; Start-BitsTransfer 'https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg' 'test2.jpg'}"</code></p>
+
+<h3 id="3-invoke-webrequest-was-added-in-powershell-30">3. Invoke-WebRequest (was added in PowerShell 3.0)</h3>
+
+<p><code class="highlighter-rouge">powershell.exe -Command "&amp; {Invoke-WebRequest 'https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg' -OutFile 'test3.jpg'}"</code></p>
+
+<h3 id="4-iwr-alias-for-invoke-webrequest-since-powershell-30">4. iwr (alias for Invoke-WebRequest since PowerShell 3.0)</h3>
+
+<p><del>powershell.exe -Command “&amp; {(iwr https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg).Content &gt; test4.jpg}”</del>
+由于之前的命令是有问题的，经过google，正确用法如下：</p>
+
+<p><code class="highlighter-rouge">powershell -command "&amp; { iwr https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg -OutFile test4.jpg }"</code></p>
+
+<h3 id="5-wget-curl-aliases-for-invoke-webrequest-since-powershell-40">5. wget, curl (aliases for Invoke-WebRequest since PowerShell 4.0)</h3>
+
+<p><code class="highlighter-rouge">powershell.exe -Command "&amp; {wget 'https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg' -OutFile 'test5.jpg'}"</code></p>
+
+<p><code class="highlighter-rouge">powershell.exe -Command "&amp; {curl 'https://raw.githubusercontent.com/3ecurity/3ecurity.github.io/master/test.jpg' -OutFile 'test6.jpg'}"</code></p>
+
+
+  </article>
+</div>
+
+  </article>
+
+</div>
+
+            </main>
+          </div>
+	</div>
+	</div>
+    </body>
+</html>

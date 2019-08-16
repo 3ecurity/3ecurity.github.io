@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>第 19 章 修正提交 | 笨办法学 Git</title>
+  <meta name="description" content="一份强调通过实践来掌握 Git 基础用法的指南。">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="第 19 章 修正提交 | 笨办法学 Git" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:description" content="一份强调通过实践来掌握 Git 基础用法的指南。" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 19 章 修正提交 | 笨办法学 Git" />
+  
+  <meta name="twitter:description" content="一份强调通过实践来掌握 Git 基础用法的指南。" />
+  <meta name="twitter:image" content="images/cover.png" />
+
+<meta name="author" content="Jim Weirich 著 / 徐小东 译">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="remove-the-oops-tag.html">
+<link rel="next" href="moving-files.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="index.html">笨办法学 Git</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>内容简介</a></li>
+<li class="chapter" data-level="" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i>更新</a></li>
+<li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
+<li class="chapter" data-level="" data-path="translator.html"><a href="translator.html"><i class="fa fa-check"></i>译者简介</a></li>
+<li class="chapter" data-level="1" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>1</b> 设置</a><ul>
+<li class="chapter" data-level="1.1" data-path="setup.html"><a href="setup.html#section-2"><i class="fa fa-check"></i><b>1.1</b> 目的</a></li>
+<li class="chapter" data-level="1.2" data-path="setup.html"><a href="setup.html#section-3"><i class="fa fa-check"></i><b>1.2</b> 设置姓名和邮箱</a></li>
+<li class="chapter" data-level="1.3" data-path="setup.html"><a href="setup.html#section-4"><i class="fa fa-check"></i><b>1.3</b> 设置行尾选项</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="more-setup.html"><a href="more-setup.html"><i class="fa fa-check"></i><b>2</b> 再谈设置</a><ul>
+<li class="chapter" data-level="2.1" data-path="more-setup.html"><a href="more-setup.html#section-5"><i class="fa fa-check"></i><b>2.1</b> 目的</a></li>
+<li class="chapter" data-level="2.2" data-path="more-setup.html"><a href="more-setup.html#section-6"><i class="fa fa-check"></i><b>2.2</b> 获取教程包</a></li>
+<li class="chapter" data-level="2.3" data-path="more-setup.html"><a href="more-setup.html#section-7"><i class="fa fa-check"></i><b>2.3</b> 解包</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="create-a-project.html"><a href="create-a-project.html"><i class="fa fa-check"></i><b>3</b> 创建项目</a><ul>
+<li class="chapter" data-level="3.1" data-path="create-a-project.html"><a href="create-a-project.html#section-8"><i class="fa fa-check"></i><b>3.1</b> 目的</a></li>
+<li class="chapter" data-level="3.2" data-path="create-a-project.html"><a href="create-a-project.html#hello-world"><i class="fa fa-check"></i><b>3.2</b> 创建“Hello, World”程序</a></li>
+<li class="chapter" data-level="3.3" data-path="create-a-project.html"><a href="create-a-project.html#section-9"><i class="fa fa-check"></i><b>3.3</b> 创建仓库</a></li>
+<li class="chapter" data-level="3.4" data-path="create-a-project.html"><a href="create-a-project.html#section-10"><i class="fa fa-check"></i><b>3.4</b> 添加程序到仓库</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="checking-status.html"><a href="checking-status.html"><i class="fa fa-check"></i><b>4</b> 检查状态</a><ul>
+<li class="chapter" data-level="4.1" data-path="checking-status.html"><a href="checking-status.html#section-11"><i class="fa fa-check"></i><b>4.1</b> 目的</a></li>
+<li class="chapter" data-level="4.2" data-path="checking-status.html"><a href="checking-status.html#section-12"><i class="fa fa-check"></i><b>4.2</b> 检查仓库的状态</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="making-changes.html"><a href="making-changes.html"><i class="fa fa-check"></i><b>5</b> 做更改</a><ul>
+<li class="chapter" data-level="5.1" data-path="making-changes.html"><a href="making-changes.html#section-13"><i class="fa fa-check"></i><b>5.1</b> 目的</a></li>
+<li class="chapter" data-level="5.2" data-path="making-changes.html"><a href="making-changes.html#hello-world-1"><i class="fa fa-check"></i><b>5.2</b> 更改“Hello, World”程序</a></li>
+<li class="chapter" data-level="5.3" data-path="making-changes.html"><a href="making-changes.html#section-14"><i class="fa fa-check"></i><b>5.3</b> 检查状态</a></li>
+<li class="chapter" data-level="5.4" data-path="making-changes.html"><a href="making-changes.html#section-15"><i class="fa fa-check"></i><b>5.4</b> 下一步</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="staging-changes.html"><a href="staging-changes.html"><i class="fa fa-check"></i><b>6</b> 暂存更改</a><ul>
+<li class="chapter" data-level="6.1" data-path="staging-changes.html"><a href="staging-changes.html#section-16"><i class="fa fa-check"></i><b>6.1</b> 目的</a></li>
+<li class="chapter" data-level="6.2" data-path="staging-changes.html"><a href="staging-changes.html#section-17"><i class="fa fa-check"></i><b>6.2</b> 添加更改</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="staging-and-committing.html"><a href="staging-and-committing.html"><i class="fa fa-check"></i><b>7</b> 暂存与提交</a></li>
+<li class="chapter" data-level="8" data-path="committing-changes.html"><a href="committing-changes.html"><i class="fa fa-check"></i><b>8</b> 提交更改</a><ul>
+<li class="chapter" data-level="8.1" data-path="committing-changes.html"><a href="committing-changes.html#section-18"><i class="fa fa-check"></i><b>8.1</b> 目的</a></li>
+<li class="chapter" data-level="8.2" data-path="committing-changes.html"><a href="committing-changes.html#section-19"><i class="fa fa-check"></i><b>8.2</b> 提交更改</a></li>
+<li class="chapter" data-level="8.3" data-path="committing-changes.html"><a href="committing-changes.html#section-20"><i class="fa fa-check"></i><b>8.3</b> 检查状态</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="changes-not-files.html"><a href="changes-not-files.html"><i class="fa fa-check"></i><b>9</b> 更改而非文件</a><ul>
+<li class="chapter" data-level="9.1" data-path="changes-not-files.html"><a href="changes-not-files.html#section-21"><i class="fa fa-check"></i><b>9.1</b> 初次更改：允许默认名称</a></li>
+<li class="chapter" data-level="9.2" data-path="changes-not-files.html"><a href="changes-not-files.html#section-22"><i class="fa fa-check"></i><b>9.2</b> 添加更改</a></li>
+<li class="chapter" data-level="9.3" data-path="changes-not-files.html"><a href="changes-not-files.html#section-23"><i class="fa fa-check"></i><b>9.3</b> 第二次更改：添加注释</a></li>
+<li class="chapter" data-level="9.4" data-path="changes-not-files.html"><a href="changes-not-files.html#section-24"><i class="fa fa-check"></i><b>9.4</b> 检查当前状态</a></li>
+<li class="chapter" data-level="9.5" data-path="changes-not-files.html"><a href="changes-not-files.html#section-25"><i class="fa fa-check"></i><b>9.5</b> 提交</a></li>
+<li class="chapter" data-level="9.6" data-path="changes-not-files.html"><a href="changes-not-files.html#section-26"><i class="fa fa-check"></i><b>9.6</b> 添加第二次更改</a></li>
+<li class="chapter" data-level="9.7" data-path="changes-not-files.html"><a href="changes-not-files.html#section-27"><i class="fa fa-check"></i><b>9.7</b> 提交第二次更改</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="history.html"><a href="history.html"><i class="fa fa-check"></i><b>10</b> 历史</a><ul>
+<li class="chapter" data-level="10.1" data-path="history.html"><a href="history.html#section-28"><i class="fa fa-check"></i><b>10.1</b> 目的</a></li>
+<li class="chapter" data-level="10.2" data-path="history.html"><a href="history.html#section-29"><i class="fa fa-check"></i><b>10.2</b> 单行历史</a></li>
+<li class="chapter" data-level="10.3" data-path="history.html"><a href="history.html#section-30"><i class="fa fa-check"></i><b>10.3</b> 控制显示哪个条目</a></li>
+<li class="chapter" data-level="10.4" data-path="history.html"><a href="history.html#section-31"><i class="fa fa-check"></i><b>10.4</b> 更加漂亮</a></li>
+<li class="chapter" data-level="10.5" data-path="history.html"><a href="history.html#section-32"><i class="fa fa-check"></i><b>10.5</b> 终极日志格式</a></li>
+<li class="chapter" data-level="10.6" data-path="history.html"><a href="history.html#section-33"><i class="fa fa-check"></i><b>10.6</b> 其它工具</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="aliases.html"><a href="aliases.html"><i class="fa fa-check"></i><b>11</b> 别名</a><ul>
+<li class="chapter" data-level="11.1" data-path="aliases.html"><a href="aliases.html#section-34"><i class="fa fa-check"></i><b>11.1</b> 目的</a></li>
+<li class="chapter" data-level="11.2" data-path="aliases.html"><a href="aliases.html#section-35"><i class="fa fa-check"></i><b>11.2</b> 常用别名</a></li>
+<li class="chapter" data-level="11.3" data-path="aliases.html"><a href="aliases.html#gitconfig--hist-"><i class="fa fa-check"></i><b>11.3</b> 在 <code>.gitconfig</code> 文件中定义 hist 别名</a></li>
+<li class="chapter" data-level="11.4" data-path="aliases.html"><a href="aliases.html#section-36"><i class="fa fa-check"></i><b>11.4</b> 输入与转存</a></li>
+<li class="chapter" data-level="11.5" data-path="aliases.html"><a href="aliases.html#shell-"><i class="fa fa-check"></i><b>11.5</b> Shell 别名（可选）</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="getting-old-versions.html"><a href="getting-old-versions.html"><i class="fa fa-check"></i><b>12</b> 获得旧版本</a><ul>
+<li class="chapter" data-level="12.1" data-path="getting-old-versions.html"><a href="getting-old-versions.html#section-37"><i class="fa fa-check"></i><b>12.1</b> 目的</a></li>
+<li class="chapter" data-level="12.2" data-path="getting-old-versions.html"><a href="getting-old-versions.html#section-38"><i class="fa fa-check"></i><b>12.2</b> 获得先前版本的哈希</a></li>
+<li class="chapter" data-level="12.3" data-path="getting-old-versions.html"><a href="getting-old-versions.html#check-master"><i class="fa fa-check"></i><b>12.3</b> 回到在 master 分支中的最新版本</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="tagging-versions.html"><a href="tagging-versions.html"><i class="fa fa-check"></i><b>13</b> 给版本打标签</a><ul>
+<li class="chapter" data-level="13.1" data-path="tagging-versions.html"><a href="tagging-versions.html#section-39"><i class="fa fa-check"></i><b>13.1</b> 目的</a></li>
+<li class="chapter" data-level="13.2" data-path="tagging-versions.html"><a href="tagging-versions.html#version-1"><i class="fa fa-check"></i><b>13.2</b> 标记 version 1</a></li>
+<li class="chapter" data-level="13.3" data-path="tagging-versions.html"><a href="tagging-versions.html#section-40"><i class="fa fa-check"></i><b>13.3</b> 标记先前的版本</a></li>
+<li class="chapter" data-level="13.4" data-path="tagging-versions.html"><a href="tagging-versions.html#section-41"><i class="fa fa-check"></i><b>13.4</b> 按标签名检出</a></li>
+<li class="chapter" data-level="13.5" data-path="tagging-versions.html"><a href="tagging-versions.html#tag-"><i class="fa fa-check"></i><b>13.5</b> 使用 tag 命令查看标签</a></li>
+<li class="chapter" data-level="13.6" data-path="tagging-versions.html"><a href="tagging-versions.html#section-42"><i class="fa fa-check"></i><b>13.6</b> 查看日志中的标签</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="undoing-local-changes.html"><a href="undoing-local-changes.html"><i class="fa fa-check"></i><b>14</b> 撤销本地更改（在暂存前）</a><ul>
+<li class="chapter" data-level="14.1" data-path="undoing-local-changes.html"><a href="undoing-local-changes.html#section-43"><i class="fa fa-check"></i><b>14.1</b> 目的</a></li>
+<li class="chapter" data-level="14.2" data-path="undoing-local-changes.html"><a href="undoing-local-changes.html#master"><i class="fa fa-check"></i><b>14.2</b> 检出 Master</a></li>
+<li class="chapter" data-level="14.3" data-path="undoing-local-changes.html"><a href="undoing-local-changes.html#hello.rb"><i class="fa fa-check"></i><b>14.3</b> 更改 hello.rb</a></li>
+<li class="chapter" data-level="14.4" data-path="undoing-local-changes.html"><a href="undoing-local-changes.html#section-44"><i class="fa fa-check"></i><b>14.4</b> 检查状态</a></li>
+<li class="chapter" data-level="14.5" data-path="undoing-local-changes.html"><a href="undoing-local-changes.html#section-45"><i class="fa fa-check"></i><b>14.5</b> 还原工作目录中的更改</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="undoing-staged-changes.html"><a href="undoing-staged-changes.html"><i class="fa fa-check"></i><b>15</b> 撤销暂存的更改</a><ul>
+<li class="chapter" data-level="15.1" data-path="undoing-staged-changes.html"><a href="undoing-staged-changes.html#section-46"><i class="fa fa-check"></i><b>15.1</b> 目的</a></li>
+<li class="chapter" data-level="15.2" data-path="undoing-staged-changes.html"><a href="undoing-staged-changes.html#section-47"><i class="fa fa-check"></i><b>15.2</b> 更改文件并暂存更改</a></li>
+<li class="chapter" data-level="15.3" data-path="undoing-staged-changes.html"><a href="undoing-staged-changes.html#section-48"><i class="fa fa-check"></i><b>15.3</b> 检查状态</a></li>
+<li class="chapter" data-level="15.4" data-path="undoing-staged-changes.html"><a href="undoing-staged-changes.html#section-49"><i class="fa fa-check"></i><b>15.4</b> 重置暂存区</a></li>
+<li class="chapter" data-level="15.5" data-path="undoing-staged-changes.html"><a href="undoing-staged-changes.html#section-50"><i class="fa fa-check"></i><b>15.5</b> 检出提交的版本</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="undoing-committed-changes.html"><a href="undoing-committed-changes.html"><i class="fa fa-check"></i><b>16</b> 撤销提交的更改</a><ul>
+<li class="chapter" data-level="16.1" data-path="undoing-committed-changes.html"><a href="undoing-committed-changes.html#section-51"><i class="fa fa-check"></i><b>16.1</b> 目的</a></li>
+<li class="chapter" data-level="16.2" data-path="undoing-committed-changes.html"><a href="undoing-committed-changes.html#section-52"><i class="fa fa-check"></i><b>16.2</b> 撤销提交</a></li>
+<li class="chapter" data-level="16.3" data-path="undoing-committed-changes.html"><a href="undoing-committed-changes.html#section-53"><i class="fa fa-check"></i><b>16.3</b> 更改文件并提交</a></li>
+<li class="chapter" data-level="16.4" data-path="undoing-committed-changes.html"><a href="undoing-committed-changes.html#section-54"><i class="fa fa-check"></i><b>16.4</b> 创建还原提交</a></li>
+<li class="chapter" data-level="16.5" data-path="undoing-committed-changes.html"><a href="undoing-committed-changes.html#section-55"><i class="fa fa-check"></i><b>16.5</b> 检查日志</a></li>
+<li class="chapter" data-level="16.6" data-path="undoing-committed-changes.html"><a href="undoing-committed-changes.html#section-56"><i class="fa fa-check"></i><b>16.6</b> 下一步</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="removing-commits-from-a-branch.html"><a href="removing-commits-from-a-branch.html"><i class="fa fa-check"></i><b>17</b> 从分支移除提交</a><ul>
+<li class="chapter" data-level="17.1" data-path="removing-commits-from-a-branch.html"><a href="removing-commits-from-a-branch.html#section-57"><i class="fa fa-check"></i><b>17.1</b> 目的</a></li>
+<li class="chapter" data-level="17.2" data-path="removing-commits-from-a-branch.html"><a href="removing-commits-from-a-branch.html#section-58"><i class="fa fa-check"></i><b>17.2</b> 重置命令</a></li>
+<li class="chapter" data-level="17.3" data-path="removing-commits-from-a-branch.html"><a href="removing-commits-from-a-branch.html#section-59"><i class="fa fa-check"></i><b>17.3</b> 检查历史</a></li>
+<li class="chapter" data-level="17.4" data-path="removing-commits-from-a-branch.html"><a href="removing-commits-from-a-branch.html#section-60"><i class="fa fa-check"></i><b>17.4</b> 首先，标记分支</a></li>
+<li class="chapter" data-level="17.5" data-path="removing-commits-from-a-branch.html"><a href="removing-commits-from-a-branch.html#oops-"><i class="fa fa-check"></i><b>17.5</b> 重置到 Oops 前</a></li>
+<li class="chapter" data-level="17.6" data-path="removing-commits-from-a-branch.html"><a href="removing-commits-from-a-branch.html#section-61"><i class="fa fa-check"></i><b>17.6</b> 什么也没丢</a></li>
+<li class="chapter" data-level="17.7" data-path="removing-commits-from-a-branch.html"><a href="removing-commits-from-a-branch.html#section-62"><i class="fa fa-check"></i><b>17.7</b> 重置的危险性</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="remove-the-oops-tag.html"><a href="remove-the-oops-tag.html"><i class="fa fa-check"></i><b>18</b> 移除 oops 标签</a><ul>
+<li class="chapter" data-level="18.1" data-path="remove-the-oops-tag.html"><a href="remove-the-oops-tag.html#section-63"><i class="fa fa-check"></i><b>18.1</b> 目的</a></li>
+<li class="chapter" data-level="18.2" data-path="remove-the-oops-tag.html"><a href="remove-the-oops-tag.html#oops--1"><i class="fa fa-check"></i><b>18.2</b> 移除 oops 标签</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="amending-commits.html"><a href="amending-commits.html"><i class="fa fa-check"></i><b>19</b> 修正提交</a><ul>
+<li class="chapter" data-level="19.1" data-path="amending-commits.html"><a href="amending-commits.html#section-64"><i class="fa fa-check"></i><b>19.1</b> 目的</a></li>
+<li class="chapter" data-level="19.2" data-path="amending-commits.html"><a href="amending-commits.html#section-65"><i class="fa fa-check"></i><b>19.2</b> 更改程序并提交</a></li>
+<li class="chapter" data-level="19.3" data-path="amending-commits.html"><a href="amending-commits.html#section-66"><i class="fa fa-check"></i><b>19.3</b> 唉，该有邮箱啊</a></li>
+<li class="chapter" data-level="19.4" data-path="amending-commits.html"><a href="amending-commits.html#section-67"><i class="fa fa-check"></i><b>19.4</b> 修正先前的提交</a></li>
+<li class="chapter" data-level="19.5" data-path="amending-commits.html"><a href="amending-commits.html#section-68"><i class="fa fa-check"></i><b>19.5</b> 回顾历史</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="moving-files.html"><a href="moving-files.html"><i class="fa fa-check"></i><b>20</b> 移动文件</a><ul>
+<li class="chapter" data-level="20.1" data-path="moving-files.html"><a href="moving-files.html#section-69"><i class="fa fa-check"></i><b>20.1</b> 目的</a></li>
+<li class="chapter" data-level="20.2" data-path="moving-files.html"><a href="moving-files.html#hello.rb--lib-"><i class="fa fa-check"></i><b>20.2</b> 将 hello.rb 文件移到 lib 目录</a></li>
+<li class="chapter" data-level="20.3" data-path="moving-files.html"><a href="moving-files.html#section-70"><i class="fa fa-check"></i><b>20.3</b> 移动文件另一法</a></li>
+<li class="chapter" data-level="20.4" data-path="moving-files.html"><a href="moving-files.html#section-71"><i class="fa fa-check"></i><b>20.4</b> 提交新的目录</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="more-structure.html"><a href="more-structure.html"><i class="fa fa-check"></i><b>21</b> 再谈结构</a><ul>
+<li class="chapter" data-level="21.1" data-path="more-structure.html"><a href="more-structure.html#section-72"><i class="fa fa-check"></i><b>21.1</b> 目的</a></li>
+<li class="chapter" data-level="21.2" data-path="more-structure.html"><a href="more-structure.html#rakefile"><i class="fa fa-check"></i><b>21.2</b> 现在添加 Rakefile</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="git-internals-the-git-directory.html"><a href="git-internals-the-git-directory.html"><i class="fa fa-check"></i><b>22</b> Git 内幕：.git 目录</a><ul>
+<li class="chapter" data-level="22.1" data-path="git-internals-the-git-directory.html"><a href="git-internals-the-git-directory.html#section-73"><i class="fa fa-check"></i><b>22.1</b> 目的</a></li>
+<li class="chapter" data-level="22.2" data-path="git-internals-the-git-directory.html"><a href="git-internals-the-git-directory.html#git-"><i class="fa fa-check"></i><b>22.2</b> .git 目录</a></li>
+<li class="chapter" data-level="22.3" data-path="git-internals-the-git-directory.html"><a href="git-internals-the-git-directory.html#section-74"><i class="fa fa-check"></i><b>22.3</b> 对象存储</a></li>
+<li class="chapter" data-level="22.4" data-path="git-internals-the-git-directory.html"><a href="git-internals-the-git-directory.html#section-75"><i class="fa fa-check"></i><b>22.4</b> 深入对象存储</a></li>
+<li class="chapter" data-level="22.5" data-path="git-internals-the-git-directory.html"><a href="git-internals-the-git-directory.html#section-76"><i class="fa fa-check"></i><b>22.5</b> 配置文件</a></li>
+<li class="chapter" data-level="22.6" data-path="git-internals-the-git-directory.html"><a href="git-internals-the-git-directory.html#section-77"><i class="fa fa-check"></i><b>22.6</b> 分支与标签</a></li>
+<li class="chapter" data-level="22.7" data-path="git-internals-the-git-directory.html"><a href="git-internals-the-git-directory.html#head-"><i class="fa fa-check"></i><b>22.7</b> HEAD 文件</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="git-internals-working-directly-with-git-objects.html"><a href="git-internals-working-directly-with-git-objects.html"><i class="fa fa-check"></i><b>23</b> Git 内幕：直接处理 Git 对象</a><ul>
+<li class="chapter" data-level="23.1" data-path="git-internals-working-directly-with-git-objects.html"><a href="git-internals-working-directly-with-git-objects.html#section-78"><i class="fa fa-check"></i><b>23.1</b> 目的</a></li>
+<li class="chapter" data-level="23.2" data-path="git-internals-working-directly-with-git-objects.html"><a href="git-internals-working-directly-with-git-objects.html#section-79"><i class="fa fa-check"></i><b>23.2</b> 查找最新的提交</a></li>
+<li class="chapter" data-level="23.3" data-path="git-internals-working-directly-with-git-objects.html"><a href="git-internals-working-directly-with-git-objects.html#section-80"><i class="fa fa-check"></i><b>23.3</b> 转存最新的提交</a></li>
+<li class="chapter" data-level="23.4" data-path="git-internals-working-directly-with-git-objects.html"><a href="git-internals-working-directly-with-git-objects.html#tree"><i class="fa fa-check"></i><b>23.4</b> 查找 Tree</a></li>
+<li class="chapter" data-level="23.5" data-path="git-internals-working-directly-with-git-objects.html"><a href="git-internals-working-directly-with-git-objects.html#lib-"><i class="fa fa-check"></i><b>23.5</b> 转存 lib 目录</a></li>
+<li class="chapter" data-level="23.6" data-path="git-internals-working-directly-with-git-objects.html"><a href="git-internals-working-directly-with-git-objects.html#hello.rb-"><i class="fa fa-check"></i><b>23.6</b> 转存 hello.rb 文件</a></li>
+<li class="chapter" data-level="23.7" data-path="git-internals-working-directly-with-git-objects.html"><a href="git-internals-working-directly-with-git-objects.html#git--1"><i class="fa fa-check"></i><b>23.7</b> 浏览你自己的 Git 仓库</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="creating-a-branch.html"><a href="creating-a-branch.html"><i class="fa fa-check"></i><b>24</b> 创建分支</a><ul>
+<li class="chapter" data-level="24.1" data-path="creating-a-branch.html"><a href="creating-a-branch.html#section-81"><i class="fa fa-check"></i><b>24.1</b> 目的</a></li>
+<li class="chapter" data-level="24.2" data-path="creating-a-branch.html"><a href="creating-a-branch.html#section-82"><i class="fa fa-check"></i><b>24.2</b> 创建分支</a></li>
+<li class="chapter" data-level="24.3" data-path="creating-a-branch.html"><a href="creating-a-branch.html#greet-greeter-"><i class="fa fa-check"></i><b>24.3</b> 更改 Greet：添加 Greeter 类</a></li>
+<li class="chapter" data-level="24.4" data-path="creating-a-branch.html"><a href="creating-a-branch.html#greet"><i class="fa fa-check"></i><b>24.4</b> 更改 Greet：修改主程序</a></li>
+<li class="chapter" data-level="24.5" data-path="creating-a-branch.html"><a href="creating-a-branch.html#greet-rakefile"><i class="fa fa-check"></i><b>24.5</b> 更改 Greet：更新 Rakefile</a></li>
+<li class="chapter" data-level="24.6" data-path="creating-a-branch.html"><a href="creating-a-branch.html#section-83"><i class="fa fa-check"></i><b>24.6</b> 下一步</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="navigating-branches.html"><a href="navigating-branches.html"><i class="fa fa-check"></i><b>25</b> 导航分支</a><ul>
+<li class="chapter" data-level="25.1" data-path="navigating-branches.html"><a href="navigating-branches.html#section-84"><i class="fa fa-check"></i><b>25.1</b> 目的</a></li>
+<li class="chapter" data-level="25.2" data-path="navigating-branches.html"><a href="navigating-branches.html#switch-master"><i class="fa fa-check"></i><b>25.2</b> 切换到 master 分支</a></li>
+<li class="chapter" data-level="25.3" data-path="navigating-branches.html"><a href="navigating-branches.html#greet-"><i class="fa fa-check"></i><b>25.3</b> 回到 Greet 分支</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="changes-in-master.html"><a href="changes-in-master.html"><i class="fa fa-check"></i><b>26</b> 在 master 中更改</a><ul>
+<li class="chapter" data-level="26.1" data-path="changes-in-master.html"><a href="changes-in-master.html#section-85"><i class="fa fa-check"></i><b>26.1</b> 目的</a></li>
+<li class="chapter" data-level="26.2" data-path="changes-in-master.html"><a href="changes-in-master.html#checkout-master"><i class="fa fa-check"></i><b>26.2</b> 切换到 master 分支</a></li>
+<li class="chapter" data-level="26.3" data-path="changes-in-master.html"><a href="changes-in-master.html#readme"><i class="fa fa-check"></i><b>26.3</b> 创建 README</a></li>
+<li class="chapter" data-level="26.4" data-path="changes-in-master.html"><a href="changes-in-master.html#readme--master"><i class="fa fa-check"></i><b>26.4</b> 提交 README 到 master</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="viewing-diverging-branches.html"><a href="viewing-diverging-branches.html"><i class="fa fa-check"></i><b>27</b> 查看分叉的分支</a><ul>
+<li class="chapter" data-level="27.1" data-path="viewing-diverging-branches.html"><a href="viewing-diverging-branches.html#section-86"><i class="fa fa-check"></i><b>27.1</b> 目的</a></li>
+<li class="chapter" data-level="27.2" data-path="viewing-diverging-branches.html"><a href="viewing-diverging-branches.html#section-87"><i class="fa fa-check"></i><b>27.2</b> 查看当前分支</a></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="merging.html"><a href="merging.html"><i class="fa fa-check"></i><b>28</b> 合并</a><ul>
+<li class="chapter" data-level="28.1" data-path="merging.html"><a href="merging.html#section-88"><i class="fa fa-check"></i><b>28.1</b> 目的</a></li>
+<li class="chapter" data-level="28.2" data-path="merging.html"><a href="merging.html#section-89"><i class="fa fa-check"></i><b>28.2</b> 合并分支</a></li>
+<li class="chapter" data-level="28.3" data-path="merging.html"><a href="merging.html#section-90"><i class="fa fa-check"></i><b>28.3</b> 下一步</a></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="creating-a-conflict.html"><a href="creating-a-conflict.html"><i class="fa fa-check"></i><b>29</b> 创建冲突</a><ul>
+<li class="chapter" data-level="29.1" data-path="creating-a-conflict.html"><a href="creating-a-conflict.html#section-91"><i class="fa fa-check"></i><b>29.1</b> 目的</a></li>
+<li class="chapter" data-level="29.2" data-path="creating-a-conflict.html"><a href="creating-a-conflict.html#co-master"><i class="fa fa-check"></i><b>29.2</b> 切换到 master 并创建冲突</a></li>
+<li class="chapter" data-level="29.3" data-path="creating-a-conflict.html"><a href="creating-a-conflict.html#section-92"><i class="fa fa-check"></i><b>29.3</b> 查看分支</a></li>
+<li class="chapter" data-level="29.4" data-path="creating-a-conflict.html"><a href="creating-a-conflict.html#section-93"><i class="fa fa-check"></i><b>29.4</b> 下一步</a></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="resolving-conflicts.html"><a href="resolving-conflicts.html"><i class="fa fa-check"></i><b>30</b> 解决冲突</a><ul>
+<li class="chapter" data-level="30.1" data-path="resolving-conflicts.html"><a href="resolving-conflicts.html#section-94"><i class="fa fa-check"></i><b>30.1</b> 目的</a></li>
+<li class="chapter" data-level="30.2" data-path="resolving-conflicts.html"><a href="resolving-conflicts.html#master--greet"><i class="fa fa-check"></i><b>30.2</b> 合并 master 到 greet</a></li>
+<li class="chapter" data-level="30.3" data-path="resolving-conflicts.html"><a href="resolving-conflicts.html#section-95"><i class="fa fa-check"></i><b>30.3</b> 修复冲突</a></li>
+<li class="chapter" data-level="30.4" data-path="resolving-conflicts.html"><a href="resolving-conflicts.html#section-96"><i class="fa fa-check"></i><b>30.4</b> 提交冲突解决</a></li>
+<li class="chapter" data-level="30.5" data-path="resolving-conflicts.html"><a href="resolving-conflicts.html#section-97"><i class="fa fa-check"></i><b>30.5</b> 高级合并</a></li>
+</ul></li>
+<li class="chapter" data-level="31" data-path="rebasing-vs-merging.html"><a href="rebasing-vs-merging.html"><i class="fa fa-check"></i><b>31</b> 变基与合并</a><ul>
+<li class="chapter" data-level="31.1" data-path="rebasing-vs-merging.html"><a href="rebasing-vs-merging.html#section-98"><i class="fa fa-check"></i><b>31.1</b> 目的</a></li>
+<li class="chapter" data-level="31.2" data-path="rebasing-vs-merging.html"><a href="rebasing-vs-merging.html#section-99"><i class="fa fa-check"></i><b>31.2</b> 讨论</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="resetting-the-greet-branch.html"><a href="resetting-the-greet-branch.html"><i class="fa fa-check"></i><b>32</b> 重置 greet 分支</a><ul>
+<li class="chapter" data-level="32.1" data-path="resetting-the-greet-branch.html"><a href="resetting-the-greet-branch.html#section-100"><i class="fa fa-check"></i><b>32.1</b> 目的</a></li>
+<li class="chapter" data-level="32.2" data-path="resetting-the-greet-branch.html"><a href="resetting-the-greet-branch.html#greet--1"><i class="fa fa-check"></i><b>32.2</b> 重置 greet 分支</a></li>
+<li class="chapter" data-level="32.3" data-path="resetting-the-greet-branch.html"><a href="resetting-the-greet-branch.html#section-101"><i class="fa fa-check"></i><b>32.3</b> 检查分支</a></li>
+</ul></li>
+<li class="chapter" data-level="33" data-path="resetting-the-master-branch.html"><a href="resetting-the-master-branch.html"><i class="fa fa-check"></i><b>33</b> 重置 master 分支</a><ul>
+<li class="chapter" data-level="33.1" data-path="resetting-the-master-branch.html"><a href="resetting-the-master-branch.html#section-102"><i class="fa fa-check"></i><b>33.1</b> 目的</a></li>
+<li class="chapter" data-level="33.2" data-path="resetting-the-master-branch.html"><a href="resetting-the-master-branch.html#master-"><i class="fa fa-check"></i><b>33.2</b> 重置 master 分支</a></li>
+</ul></li>
+<li class="chapter" data-level="34" data-path="rebasing.html"><a href="rebasing.html"><i class="fa fa-check"></i><b>34</b> 变基</a><ul>
+<li class="chapter" data-level="34.1" data-path="rebasing.html"><a href="rebasing.html#section-103"><i class="fa fa-check"></i><b>34.1</b> 目的</a></li>
+<li class="chapter" data-level="34.2" data-path="rebasing.html"><a href="rebasing.html#vs-"><i class="fa fa-check"></i><b>34.2</b> 合并 VS 变基</a></li>
+<li class="chapter" data-level="34.3" data-path="rebasing.html"><a href="rebasing.html#section-104"><i class="fa fa-check"></i><b>34.3</b> 何时变基，何时合并?</a></li>
+</ul></li>
+<li class="chapter" data-level="35" data-path="merging-back-to-master.html"><a href="merging-back-to-master.html"><i class="fa fa-check"></i><b>35</b> 合并回 master</a><ul>
+<li class="chapter" data-level="35.1" data-path="merging-back-to-master.html"><a href="merging-back-to-master.html#section-105"><i class="fa fa-check"></i><b>35.1</b> 目的</a></li>
+<li class="chapter" data-level="35.2" data-path="merging-back-to-master.html"><a href="merging-back-to-master.html#greet--master-"><i class="fa fa-check"></i><b>35.2</b> 合并 greet 到 master 中</a></li>
+<li class="chapter" data-level="35.3" data-path="merging-back-to-master.html"><a href="merging-back-to-master.html#section-106"><i class="fa fa-check"></i><b>35.3</b> 回顾日志</a></li>
+</ul></li>
+<li class="chapter" data-level="36" data-path="multiple-repositories.html"><a href="multiple-repositories.html"><i class="fa fa-check"></i><b>36</b> 多个仓库</a></li>
+<li class="chapter" data-level="37" data-path="cloning-repositories.html"><a href="cloning-repositories.html"><i class="fa fa-check"></i><b>37</b> 克隆仓库</a><ul>
+<li class="chapter" data-level="37.1" data-path="cloning-repositories.html"><a href="cloning-repositories.html#section-107"><i class="fa fa-check"></i><b>37.1</b> 目的</a></li>
+<li class="chapter" data-level="37.2" data-path="cloning-repositories.html"><a href="cloning-repositories.html#section-108"><i class="fa fa-check"></i><b>37.2</b> 转到工作目录</a></li>
+<li class="chapter" data-level="37.3" data-path="cloning-repositories.html"><a href="cloning-repositories.html#hello-"><i class="fa fa-check"></i><b>37.3</b> 创建 hello 仓库的克隆</a></li>
+</ul></li>
+<li class="chapter" data-level="38" data-path="review-the-cloned-repository.html"><a href="review-the-cloned-repository.html"><i class="fa fa-check"></i><b>38</b> 回顾克隆的仓库</a><ul>
+<li class="chapter" data-level="38.1" data-path="review-the-cloned-repository.html"><a href="review-the-cloned-repository.html#section-109"><i class="fa fa-check"></i><b>38.1</b> 目的</a></li>
+<li class="chapter" data-level="38.2" data-path="review-the-cloned-repository.html"><a href="review-the-cloned-repository.html#section-110"><i class="fa fa-check"></i><b>38.2</b> 查看克隆的仓库</a></li>
+<li class="chapter" data-level="38.3" data-path="review-the-cloned-repository.html"><a href="review-the-cloned-repository.html#section-111"><i class="fa fa-check"></i><b>38.3</b> 回顾仓库历史</a></li>
+<li class="chapter" data-level="38.4" data-path="review-the-cloned-repository.html"><a href="review-the-cloned-repository.html#section-112"><i class="fa fa-check"></i><b>38.4</b> 远程分支</a></li>
+</ul></li>
+<li class="chapter" data-level="39" data-path="what-is-origin.html"><a href="what-is-origin.html"><i class="fa fa-check"></i><b>39</b> 何为 Origin?</a><ul>
+<li class="chapter" data-level="39.1" data-path="what-is-origin.html"><a href="what-is-origin.html#section-113"><i class="fa fa-check"></i><b>39.1</b> 目的</a></li>
+</ul></li>
+<li class="chapter" data-level="40" data-path="remote-branches.html"><a href="remote-branches.html"><i class="fa fa-check"></i><b>40</b> 远程分支</a><ul>
+<li class="chapter" data-level="40.1" data-path="remote-branches.html"><a href="remote-branches.html#section-114"><i class="fa fa-check"></i><b>40.1</b> 目的</a></li>
+<li class="chapter" data-level="40.2" data-path="remote-branches.html"><a href="remote-branches.html#section-115"><i class="fa fa-check"></i><b>40.2</b> 列出远程分支</a></li>
+</ul></li>
+<li class="chapter" data-level="41" data-path="change-the-original-repository.html"><a href="change-the-original-repository.html"><i class="fa fa-check"></i><b>41</b> 更改原始仓库</a><ul>
+<li class="chapter" data-level="41.1" data-path="change-the-original-repository.html"><a href="change-the-original-repository.html#section-116"><i class="fa fa-check"></i><b>41.1</b> 目的</a></li>
+<li class="chapter" data-level="41.2" data-path="change-the-original-repository.html"><a href="change-the-original-repository.html#hello--1"><i class="fa fa-check"></i><b>41.2</b> 在原始的 hello 仓库中做更改</a></li>
+<li class="chapter" data-level="41.3" data-path="change-the-original-repository.html"><a href="change-the-original-repository.html#section-117"><i class="fa fa-check"></i><b>41.3</b> 下一步</a></li>
+</ul></li>
+<li class="chapter" data-level="42" data-path="fetching-changes.html"><a href="fetching-changes.html"><i class="fa fa-check"></i><b>42</b> 拉取更改</a><ul>
+<li class="chapter" data-level="42.1" data-path="fetching-changes.html"><a href="fetching-changes.html#section-118"><i class="fa fa-check"></i><b>42.1</b> 目的</a></li>
+<li class="chapter" data-level="42.2" data-path="fetching-changes.html"><a href="fetching-changes.html#readme-1"><i class="fa fa-check"></i><b>42.2</b> 检查 README</a></li>
+</ul></li>
+<li class="chapter" data-level="43" data-path="merging-pulled-changes.html"><a href="merging-pulled-changes.html"><i class="fa fa-check"></i><b>43</b> 合并拉取的更改</a><ul>
+<li class="chapter" data-level="43.1" data-path="merging-pulled-changes.html"><a href="merging-pulled-changes.html#section-119"><i class="fa fa-check"></i><b>43.1</b> 目的</a></li>
+<li class="chapter" data-level="43.2" data-path="merging-pulled-changes.html"><a href="merging-pulled-changes.html#master-1"><i class="fa fa-check"></i><b>43.2</b> 将拉取的更改合并到本地 master</a></li>
+<li class="chapter" data-level="43.3" data-path="merging-pulled-changes.html"><a href="merging-pulled-changes.html#readme-2"><i class="fa fa-check"></i><b>43.3</b> 再次检查 README</a></li>
+<li class="chapter" data-level="43.4" data-path="merging-pulled-changes.html"><a href="merging-pulled-changes.html#section-120"><i class="fa fa-check"></i><b>43.4</b> 下一步</a></li>
+</ul></li>
+<li class="chapter" data-level="44" data-path="pulling-changes.html"><a href="pulling-changes.html"><i class="fa fa-check"></i><b>44</b> 拉取更改</a><ul>
+<li class="chapter" data-level="44.1" data-path="pulling-changes.html"><a href="pulling-changes.html#section-121"><i class="fa fa-check"></i><b>44.1</b> 目的</a></li>
+<li class="chapter" data-level="44.2" data-path="pulling-changes.html"><a href="pulling-changes.html#section-122"><i class="fa fa-check"></i><b>44.2</b> 讨论</a></li>
+</ul></li>
+<li class="chapter" data-level="45" data-path="adding-a-tracking-branch.html"><a href="adding-a-tracking-branch.html"><i class="fa fa-check"></i><b>45</b> 添加跟踪的分支</a><ul>
+<li class="chapter" data-level="45.1" data-path="adding-a-tracking-branch.html"><a href="adding-a-tracking-branch.html#section-123"><i class="fa fa-check"></i><b>45.1</b> 目的</a></li>
+<li class="chapter" data-level="45.2" data-path="adding-a-tracking-branch.html"><a href="adding-a-tracking-branch.html#section-124"><i class="fa fa-check"></i><b>45.2</b> 添加跟踪远程分支的本地分支</a></li>
+</ul></li>
+<li class="chapter" data-level="46" data-path="bare-repositories.html"><a href="bare-repositories.html"><i class="fa fa-check"></i><b>46</b> 裸仓库</a><ul>
+<li class="chapter" data-level="46.1" data-path="bare-repositories.html"><a href="bare-repositories.html#section-125"><i class="fa fa-check"></i><b>46.1</b> 目的</a></li>
+<li class="chapter" data-level="46.2" data-path="bare-repositories.html"><a href="bare-repositories.html#section-126"><i class="fa fa-check"></i><b>46.2</b> 创建裸仓库</a></li>
+</ul></li>
+<li class="chapter" data-level="47" data-path="adding-a-remote-repository.html"><a href="adding-a-remote-repository.html"><i class="fa fa-check"></i><b>47</b> 添加远程仓库</a><ul>
+<li class="chapter" data-level="47.1" data-path="adding-a-remote-repository.html"><a href="adding-a-remote-repository.html#section-127"><i class="fa fa-check"></i><b>47.1</b> 目的</a></li>
+</ul></li>
+<li class="chapter" data-level="48" data-path="pushing-a-change.html"><a href="pushing-a-change.html"><i class="fa fa-check"></i><b>48</b> 推送更改</a><ul>
+<li class="chapter" data-level="48.1" data-path="pushing-a-change.html"><a href="pushing-a-change.html#section-128"><i class="fa fa-check"></i><b>48.1</b> 目的</a></li>
+</ul></li>
+<li class="chapter" data-level="49" data-path="pulling-shared-changes.html"><a href="pulling-shared-changes.html"><i class="fa fa-check"></i><b>49</b> 拉取共享的更改</a><ul>
+<li class="chapter" data-level="49.1" data-path="pulling-shared-changes.html"><a href="pulling-shared-changes.html#section-129"><i class="fa fa-check"></i><b>49.1</b> 目的</a></li>
+</ul></li>
+<li class="chapter" data-level="50" data-path="hosting-your-git-repositories.html"><a href="hosting-your-git-repositories.html"><i class="fa fa-check"></i><b>50</b> 托管你的 Git 仓库</a><ul>
+<li class="chapter" data-level="50.1" data-path="hosting-your-git-repositories.html"><a href="hosting-your-git-repositories.html#section-130"><i class="fa fa-check"></i><b>50.1</b> 目的</a></li>
+<li class="chapter" data-level="50.2" data-path="hosting-your-git-repositories.html"><a href="hosting-your-git-repositories.html#git--2"><i class="fa fa-check"></i><b>50.2</b> 启动 Git 服务器</a></li>
+<li class="chapter" data-level="50.3" data-path="hosting-your-git-repositories.html"><a href="hosting-your-git-repositories.html#git-daemon"><i class="fa fa-check"></i><b>50.3</b> 推送到 Git daemon</a></li>
+</ul></li>
+<li class="chapter" data-level="51" data-path="sharing-repos.html"><a href="sharing-repos.html"><i class="fa fa-check"></i><b>51</b> 共享仓库</a><ul>
+<li class="chapter" data-level="51.1" data-path="sharing-repos.html"><a href="sharing-repos.html#section-131"><i class="fa fa-check"></i><b>51.1</b> 目的</a></li>
+</ul></li>
+<li class="chapter" data-level="52" data-path="advanced-future-topics.html"><a href="advanced-future-topics.html"><i class="fa fa-check"></i><b>52</b> 高级/将来的主题</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="index.html">笨办法学 Git</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="amending-commits" class="section level1">
+<h1><span class="header-section-number">第 19 章</span> 修正提交</h1>
+<div id="section-64" class="section level2">
+<h2><span class="header-section-number">19.1</span> 目的</h2>
+<p>学习如何修正现有的提交。</p>
+</div>
+<div id="section-65" class="section level2">
+<h2><span class="header-section-number">19.2</span> 更改程序并提交</h2>
+<p>给程序添加作者注释。</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># Default is World</span>
+<span class="co"># Author: Jim Weirich</span>
+name = <span class="dt">ARGV</span>.first || <span class="st">&quot;World&quot;</span>
+
+puts <span class="st">&quot;Hello, </span><span class="ot">#{</span>name<span class="ot">}</span><span class="st">!&quot;</span></code></pre>
+<pre><code>$ git add hello.rb
+$ git commit -m &quot;Add an author comment&quot;</code></pre>
+</div>
+<div id="section-66" class="section level2">
+<h2><span class="header-section-number">19.3</span> 唉，该有邮箱啊</h2>
+<p>在你做了提交之后，你意识到任何好的作者注释都应该包含邮箱地址。更新 <code>hello</code> 程序来包含邮箱。</p>
+<pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># Default is World</span>
+<span class="co"># Author: Jim Weirich (jim@somewhere.com)</span>
+name = <span class="dt">ARGV</span>.first || <span class="st">&quot;World&quot;</span>
+
+puts <span class="st">&quot;Hello, </span><span class="ot">#{</span>name<span class="ot">}</span><span class="st">!&quot;</span></code></pre>
+</div>
+<div id="section-67" class="section level2">
+<h2><span class="header-section-number">19.4</span> 修正先前的提交</h2>
+<p>我们真的不想因为邮箱而分开提交。让我们修正先前的提交来包含邮箱更改。</p>
+<pre><code>$ git add hello.rb
+$ git commit --amend -m &quot;Add an author/email comment&quot;</code></pre>
+<pre><code>$ git add hello.rb
+$ git commit --amend -m &quot;Add an author/email comment&quot;
+[master eb30103] Add an author/email comment
+ 1 files changed, 2 insertions(+), 1 deletions(-)</code></pre>
+</div>
+<div id="section-68" class="section level2">
+<h2><span class="header-section-number">19.5</span> 回顾历史</h2>
+<pre><code>$ git hist</code></pre>
+<pre><code>$ git hist
+* eb30103 2013-04-13 | Add an author/email comment (HEAD, master)
+[Jim Weirich]
+* 1f7ec5e 2013-04-13 | Added a comment (v1) [Jim Weirich]
+* 582495a 2013-04-13 | Added a default value (v1-beta)
+[Jim Weirich]
+* 323e28d 2013-04-13 | Using ARGV [Jim Weirich]
+* 9416416 2013-04-13 | First Commit [Jim Weirich]</code></pre>
+<p>我们可以看到最初的“author”提交现在消失了，而且它已经被“author/email”提交替换。通过重置分支到某个提交并重新提交新的更改，你可以实现相同的效果。</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="remove-the-oops-tag.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="moving-files.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["learngit.pdf", "learngit.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

