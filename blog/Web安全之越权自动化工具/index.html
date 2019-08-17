@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Web安全-越权自动化工具 | 3ecurity</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap-3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-137778587-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-137778587-1');
+</script>
+
+
+
+    <link rel="shortcut icon" href="/images/favicon.jpg">
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed/"> 
+
+</head>
+
+
+    <body>
+      <div class="container">
+
+        
+
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <main>
+            <div class="post">
+
+  <header class="post-header">
+    <h1>Web安全-越权自动化工具</h1>
+  </header>
+
+  <article class="post-content">
+  <div class="post">
+
+  <header class="post-header">
+    <p class="meta">
+        Apr 28, 2019
+        
+        
+        •
+        <span><a href="/category/#Web安全" class="reserved">Web安全</a>,</span><span><a href="/category/#越权自动化" class="reserved">越权自动化</a></span>
+    </p>
+  </header>
+
+  <article class="post-content">
+  <blockquote>
+  <p>此篇博文主要描述的是关于自建扫描器实现越权访问检测的思考🤔</p>
+  <h4 id="关于越权">关于越权</h4>
+  <p>以前接触到的一些扫描器，大多都是针对SQL注入、XSS这类攻击进行扫描。虽然扫描器可以实现登录扫描，但是仅限于一个帐号登录。做不到2个帐号登录，或者是一个帐号登录，然后通过修改帐号标示来判断是否存在越权。</p>
+  <h4 id="实现思路">实现思路</h4>
+  <p>自动化工具简而言之就是模拟人工进行重复性的操作，那我们想一下，如果是手工检测越权，我们需要如何去操作?</p>
+</blockquote>
+
+<blockquote>
+  <h5 id="情况一">情况一</h5>
+  <p>通过替换cookie的值来测试越权。</p>
+  <blockquote>
+    <h6 id="步骤一">步骤一</h6>
+    <blockquote>
+      <p>首先正常登录用户A、记录A用户所有的功能菜单，接着登录用户B、记录B用户所有的功能菜单。</p>
+      <h6 id="步骤二">步骤二</h6>
+      <p>接着对比两个用户中交叉范围外的菜单，例如A帐号的菜单为1，2，3，4，5。B帐号的菜单为2，3，4，5。那么，我们只需要用B帐号的cookie去访问A菜单中1功能的url。如果可以成功访问，那么就说明是存在越权问题的。</p>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <h5 id="情况二">情况二</h5>
+  <p>通过替换URL参数来测试越权。。</p>
+  <blockquote>
+    <h6 id="步骤一-1">步骤一</h6>
+    <blockquote>
+      <p>首先正常登录用户A、记录A用户访问某些URL时候参数值，以及返回的数据报文。接着登录用户B、记录B用户访问某些URL时候的参数值，以及返回的数据报文。</p>
+      <h6 id="步骤二-1">步骤二</h6>
+      <p>接着将A用户访问的参数值替换为B用户访问的参数值，对比当前返回的数据报文。如果和步骤一中A返回数据报文相同，则说明不存在越权问题。如果和步骤一中B用户返回的数据报文相同，则说明存在越权问题。</p>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+
+  </article>
+</div>
+
+  </article>
+
+</div>
+
+            </main>
+          </div>
+	</div>
+	</div>
+    </body>
+</html>

