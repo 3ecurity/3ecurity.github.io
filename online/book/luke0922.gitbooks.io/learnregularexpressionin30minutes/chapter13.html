@@ -1,0 +1,507 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>零宽断言 | 正则表达式30分钟入门教程</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        <meta name="author" content="Tyrael">
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-comment/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="chapter14.html" />
+    
+    
+    <link rel="prev" href="chapter12.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="13"
+        data-chapter-title="零宽断言"
+        data-filepath="chapter13.md"
+        data-basepath="."
+        data-revision="Mon May 16 2016 04:13:29 GMT+0000 (UTC)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+                
+                <li>
+                    <a href="https://www.gitbook.com/book/luke0922/learnregularexpressionin30minutes" target="blank" class="custom-link">正则表达式30分钟入门教程</a>
+                </li>
+            
+            
+
+            
+            <li class="divider"></li>
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        简介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="chapter1.html">
+            
+                
+                    <a href="chapter1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        如何使用本教程
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="chapter2.html">
+            
+                
+                    <a href="chapter2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        正则表达式到底是什么东西？
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="chapter3.html">
+            
+                
+                    <a href="chapter3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        入门
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="chapter4.html">
+            
+                
+                    <a href="chapter4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        测试正则表达式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="chapter5.html">
+            
+                
+                    <a href="chapter5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        元字符
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="chapter6.html">
+            
+                
+                    <a href="chapter6.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        字符转义
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="chapter7.html">
+            
+                
+                    <a href="chapter7.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        重复
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="chapter8.html">
+            
+                
+                    <a href="chapter8.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        字符类
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="chapter9.html">
+            
+                
+                    <a href="chapter9.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        分枝条件
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="chapter10.html">
+            
+                
+                    <a href="chapter10.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.</b>
+                        
+                        分组
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="chapter11.html">
+            
+                
+                    <a href="chapter11.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        反义
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="chapter12.html">
+            
+                
+                    <a href="chapter12.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.</b>
+                        
+                        后向引用
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="13" data-path="chapter13.html">
+            
+                
+                    <a href="chapter13.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.</b>
+                        
+                        零宽断言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14" data-path="chapter14.html">
+            
+                
+                    <a href="chapter14.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.</b>
+                        
+                        负向零宽断言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="chapter15.html">
+            
+                
+                    <a href="chapter15.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.</b>
+                        
+                        注释
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16" data-path="chapter16.html">
+            
+                
+                    <a href="chapter16.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.</b>
+                        
+                        贪婪与懒惰
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17" data-path="chapter17.html">
+            
+                
+                    <a href="chapter17.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>17.</b>
+                        
+                        处理选项
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="18" data-path="chapter18.html">
+            
+                
+                    <a href="chapter18.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>18.</b>
+                        
+                        平衡组/递归匹配
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="19" data-path="chapter19.html">
+            
+                
+                    <a href="chapter19.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>19.</b>
+                        
+                        还有些什么东西没提到
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="20" data-path="chapter20.html">
+            
+                
+                    <a href="chapter20.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>20.</b>
+                        
+                        网上的资源及本文参考文献
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="21" data-path="chapter21.html">
+            
+                
+                    <a href="chapter21.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>21.</b>
+                        
+                        更新纪录
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本書使用 GitBook 釋出
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="index.html" >正则表达式30分钟入门教程</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="&#x96F6;&#x5BBD;&#x65AD;&#x8A00;">&#x96F6;&#x5BBD;&#x65AD;&#x8A00;</h1>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x56DB;&#x4E2A;&#x7528;&#x4E8E;&#x67E5;&#x627E;&#x5728;&#x67D0;&#x4E9B;&#x5185;&#x5BB9;(&#x4F46;&#x5E76;&#x4E0D;&#x5305;&#x62EC;&#x8FD9;&#x4E9B;&#x5185;&#x5BB9;)&#x4E4B;&#x524D;&#x6216;&#x4E4B;&#x540E;&#x7684;&#x4E1C;&#x897F;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5B83;&#x4EEC;&#x50CF; <strong>\b,\^,$</strong> &#x90A3;&#x6837;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x8FD9;&#x4E2A;&#x4F4D;&#x7F6E;&#x5E94;&#x8BE5;&#x6EE1;&#x8DB3;&#x4E00;&#x5B9A;&#x7684;&#x6761;&#x4EF6;(&#x5373;&#x65AD;&#x8A00;)&#xFF0C;&#x56E0;&#x6B64;&#x5B83;&#x4EEC;&#x4E5F;&#x88AB;&#x79F0;&#x4E3A;&#x96F6;&#x5BBD;&#x65AD;&#x8A00;&#x3002;</p>
+<p>&#x6700;&#x597D;&#x8FD8;&#x662F;&#x62FF;&#x4F8B;&#x5B50;&#x6765;&#x8BF4;&#x660E;&#x5427;&#xFF1A;</p>
+<pre><code>(?=exp)
+</code></pre><p>&#x4E5F;&#x53EB;<strong>&#x96F6;&#x5BBD;&#x5EA6;&#x6B63;&#x9884;&#x6D4B;&#x5148;&#x884C;&#x65AD;&#x8A00;</strong>&#xFF0C;&#x5B83;&#x65AD;&#x8A00;&#x81EA;&#x8EAB;&#x51FA;&#x73B0;&#x7684;&#x4F4D;&#x7F6E;&#x7684;&#x540E;&#x9762;&#x80FD;&#x5339;&#x914D;&#x8868;&#x8FBE;&#x5F0F;<em>exp</em>&#x3002;&#x6BD4;&#x5982; <code>\b\w+(?=ing\b)</code>&#xFF0C;&#x5339;&#x914D;&#x4EE5;ing&#x7ED3;&#x5C3E;&#x7684;&#x5355;&#x8BCD;&#x7684;&#x524D;&#x9762;&#x90E8;&#x5206;(&#x9664;&#x4E86;ing&#x4EE5;&#x5916;&#x7684;&#x90E8;&#x5206;)&#xFF0C;&#x5982;&#x67E5;&#x627E; <code>I&apos;m singing while you&apos;re dancing.</code> &#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x5339;&#x914D; <code>sing</code> &#x548C; <code>danc</code>&#x3002;</p>
+<p><code>(?&lt;=exp)</code> &#x4E5F;&#x53EB;<strong>&#x96F6;&#x5BBD;&#x5EA6;&#x6B63;&#x56DE;&#x987E;&#x540E;&#x53D1;&#x65AD;&#x8A00;</strong>&#xFF0C;&#x5B83;&#x65AD;&#x8A00;&#x81EA;&#x8EAB;&#x51FA;&#x73B0;&#x7684;&#x4F4D;&#x7F6E;&#x7684;&#x524D;&#x9762;&#x80FD;&#x5339;&#x914D;&#x8868;&#x8FBE;&#x5F0F;<code>exp</code>&#x3002;&#x6BD4;&#x5982; <code>(?&lt;=\bre)\w+\b</code> &#x4F1A;&#x5339;&#x914D;&#x4EE5;<code>re</code> &#x5F00;&#x5934;&#x7684;&#x5355;&#x8BCD;&#x7684;&#x540E;&#x534A;&#x90E8;&#x5206;(&#x9664;&#x4E86; <code>re</code> &#x4EE5;&#x5916;&#x7684;&#x90E8;&#x5206;)&#xFF0C;&#x4F8B;&#x5982;&#x5728;&#x67E5;&#x627E;<code>reading a book</code>&#x65F6;&#xFF0C;&#x5B83;&#x5339;&#x914D; <code>ading</code>&#x3002;</p>
+<p>&#x5047;&#x5982;&#x4F60;&#x60F3;&#x8981;&#x7ED9;&#x4E00;&#x4E2A;&#x5F88;&#x957F;&#x7684;&#x6570;&#x5B57;&#x4E2D;&#x6BCF;&#x4E09;&#x4F4D;&#x95F4;&#x52A0;&#x4E00;&#x4E2A;&#x9017;&#x53F7;(&#x5F53;&#x7136;&#x662F;&#x4ECE;&#x53F3;&#x8FB9;&#x52A0;&#x8D77;&#x4E86;)&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x67E5;&#x627E;&#x9700;&#x8981;&#x5728;&#x524D;&#x9762;&#x548C;&#x91CC;&#x9762;&#x6DFB;&#x52A0;&#x9017;&#x53F7;&#x7684;&#x90E8;&#x5206;&#xFF1A;</p>
+<pre><code>((?&lt;=\d)\d{3})+\b
+</code></pre><p>&#x7528;&#x5B83;&#x5BF9;1234567890&#x8FDB;&#x884C;&#x67E5;&#x627E;&#x65F6;&#x7ED3;&#x679C;&#x662F;234567890&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x4E86;&#x8FD9;&#x4E24;&#x79CD;&#x65AD;&#x8A00;&#xFF1A;</p>
+<pre><code>(?&lt;=\s)\d+(?=\s)
+</code></pre><p>&#x5339;&#x914D;&#x4EE5;&#x7A7A;&#x767D;&#x7B26;&#x95F4;&#x9694;&#x7684;&#x6570;&#x5B57;(&#x518D;&#x6B21;&#x5F3A;&#x8C03;&#xFF0C;&#x4E0D;&#x5305;&#x62EC;&#x8FD9;&#x4E9B;&#x7A7A;&#x767D;&#x7B26;)&#x3002;</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="chapter12.html" class="navigation navigation-prev " aria-label="Previous page: 后向引用"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="chapter14.html" class="navigation navigation-next " aria-label="Next page: 负向零宽断言"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-comment/plugin.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"comment":{"highlightCommented":true},"autocover":{},"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
